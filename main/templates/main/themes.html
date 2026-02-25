@@ -1,0 +1,319 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/themes/carosel/carosel.jpg' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.hero-heading-secondary {
+  letter-spacing: 0.2rem;
+}
+
+.theme-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  margin: 0 auto;
+  padding-bottom: 8rem;
+  padding-top: 8rem;
+}
+
+.theme-card {
+  height: 25rem;
+  width: 38rem;
+  background-color: rgb(255, 243, 236);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.theme-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(75, 31, 90, 0.25);
+}
+
+.theme-card-colors {
+  height: 15rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  transition: 0.3s ease;
+}
+
+.theme-card-color-1 { background: #6b21a8; }
+.theme-card-color-2 { background: #f59e0b; }
+.theme-card-color-3 { background: #dc2626; }
+.theme-card-color-4 { background: #000000; }
+.theme-card-color-5 { background: #ffffff; }
+.theme-card-color-6 { background: #9ca3af; }
+.theme-card-color-7 { background: #ec4899; }
+.theme-card-color-8 { background: #34d399; }
+.theme-card-color-9 { background: #fbbf24; }
+.theme-card-color-10 { background: #ef4444; }
+.theme-card-color-11 { background: #f59e0b; }
+.theme-card-color-12 { background: #8b5cf6; }
+.theme-card-color-13 { background: #f3f4f6; }
+.theme-card-color-14 { background: #f9a8d4; }
+.theme-card-color-15 { background: #9ca3af; }
+.theme-card-color-16 { background: #1f2937; }
+.theme-card-color-17 { background: #6b7280; }
+.theme-card-color-18 { background: #d1d5db; }
+
+.theme-card-name {
+  padding: 2rem;
+  padding-top: 2.2rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.theme-card-name h1 {
+  color: #3b0568;
+  font-size: 2.2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.theme-card:hover .theme-card-name h1 {
+  color: #620fa6;
+}
+
+.theme-card-name span {
+  color: #89909b;
+  font-size: 1.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.theme-card:hover .theme-card-name span {
+  color: goldenrod;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1386px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 55%;
+  }
+  .max-width {
+    margin: 0 auto;
+    max-width: 100rem;
+  }
+  .theme-cards {
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 1140px) {
+  html {
+    font-size: 50%;
+  }
+  .max-width {
+    max-width: 90rem;
+  }
+  .theme-cards {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-evenly;
+    align-items: center;
+    column-gap: 10rem;
+    row-gap: 10rem;
+  }
+  .theme-card {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 860px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+@media (max-width: 769px) {
+  .max-width {
+    max-width: 70rem;
+  }
+  .theme-cards {
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: space-between;
+    row-gap: 3rem;
+  }
+  .theme-card {
+    height: 32rem;
+    width: auto;
+    background-color: rgb(251, 242, 221);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .theme-card-colors {
+    height: 18rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .max-width {
+    max-width: 60rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 40%;
+  }
+  .max-width {
+    max-width: 50rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .max-width {
+    max-width: 45rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Themes & Décor</h1>
+        <p class="hero-heading-secondary">
+          Where rhythm, creativity, and elegance come together.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="themes">
+  <div class="theme-container max-width">
+    <div class="theme-cards">
+      
+      <div class="theme-card reveal">
+        <div class="theme-card-colors">
+          <div class="theme-card-color-1 color"></div>
+          <div class="theme-card-color-2 color"></div>
+          <div class="theme-card-color-3 color"></div>
+        </div>
+        <div class="theme-card-name">
+          <h1>Royal & Regal</h1>
+          <span>Majestic elegance</span>
+        </div>
+      </div>
+      
+      <div class="theme-card reveal">
+        <div class="theme-card-colors">
+          <div class="theme-card-color-4 color"></div>
+          <div class="theme-card-color-5 color"></div>
+          <div class="theme-card-color-6 color"></div>
+        </div>
+        <div class="theme-card-name">
+          <h1>Modern Minimal</h1>
+          <span>Clean sophistication</span>
+        </div>
+      </div>
+      
+      <div class="theme-card reveal">
+        <div class="theme-card-colors">
+          <div class="theme-card-color-7 color"></div>
+          <div class="theme-card-color-8 color"></div>
+          <div class="theme-card-color-9 color"></div>
+        </div>
+        <div class="theme-card-name">
+          <h1>Floral Paradise</h1>
+          <span>Nature inspired</span>
+        </div>
+      </div>
+      
+      <div class="theme-card reveal">
+        <div class="theme-card-colors">
+          <div class="theme-card-color-10 color"></div>
+          <div class="theme-card-color-11 color"></div>
+          <div class="theme-card-color-12 color"></div>
+        </div>
+        <div class="theme-card-name">
+          <h1>Bollywood Glam</h1>
+          <span>Vibrant celebration</span>
+        </div>
+      </div>
+      
+      <div class="theme-card reveal">
+        <div class="theme-card-colors">
+          <div class="theme-card-color-13 color"></div>
+          <div class="theme-card-color-14 color"></div>
+          <div class="theme-card-color-15 color"></div>
+        </div>
+        <div class="theme-card-name">
+          <h1>Vintage Romance</h1>
+          <span>Timeless charm</span>
+        </div>
+      </div>
+      
+      <div class="theme-card reveal">
+        <div class="theme-card-colors">
+          <div class="theme-card-color-16 color"></div>
+          <div class="theme-card-color-17 color"></div>
+          <div class="theme-card-color-18 color"></div>
+        </div>
+        <div class="theme-card-name">
+          <h1>Contemporary Chic</h1>
+          <span>Urban elegance</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+{% endblock %}

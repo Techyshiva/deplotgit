@@ -1,0 +1,122 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+<style>
+    .section-title {
+        text-align: center;
+        margin: 30px 0 20px;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .messages-container {
+        width: 95%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+
+    .message-card {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        padding: 20px;
+        gap: 10px;
+        position: relative;
+    }
+
+    .message-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .message-label {
+        font-weight: 600;
+        width: 120px;
+        flex-shrink: 0;
+    }
+
+    .message-value {
+        flex: 1;
+        word-wrap: break-word;
+    }
+
+    .message-box {
+        margin-top: 10px;
+        background: #f9f9f9;
+        padding: 12px;
+        border-radius: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        font-size: 14px;
+    }
+
+    .message-actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .action-btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background: #a71d2a;
+    }
+</style>
+
+<h2 class="section-title">Contact Messages</h2>
+
+<div class="messages-container">
+    {% for msg in contact_msgs %}
+        <div class="message-card">
+            <div class="message-row">
+                <div class="message-label">Name:</div>
+                <div class="message-value">{{ msg.name|default:"-" }}</div>
+            </div>
+            <div class="message-row">
+                <div class="message-label">Email:</div>
+                <div class="message-value"><a href="mailto:{{ msg.email }}">{{ msg.email|default:"-" }}</a></div>
+            </div>
+            <div class="message-row">
+                <div class="message-label">Event Type:</div>
+                <div class="message-value">{{ msg.event_type|default:"-" }}</div>
+            </div>
+            <div class="message-row">
+                <div class="message-label">Date Received:</div>
+                <div class="message-value">{{ msg.created_at|date:"Y-m-d H:i" }}</div>
+            </div>
+            <div class="message-box">
+                <strong>Message:</strong>
+                <div>{{ msg.message|default:"-" }}</div>
+            </div>
+            <div class="message-actions">
+                <a href="{% url 'delete_inquiry' msg.pk %}" class="action-btn delete-btn"
+                   onclick="return confirm('Delete this message from {{ msg.name }}?')">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <div style="text-align:center; padding:20px; font-size:16px;">No messages found.</div>
+    {% endfor %}
+</div>
+{% endblock %}

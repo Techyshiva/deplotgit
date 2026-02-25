@@ -1,0 +1,215 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/terms/carousel01.jpg' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.term-section {
+  height: auto;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.term-container-box {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.term-update-date {
+  font-size: 1.6rem;
+  color: #666666;
+}
+
+.term-box-point h1 {
+  font-size: 2.6rem;
+  margin-top: 3.4rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: rgb(70, 18, 118);
+  text-align: left;
+}
+
+.term-box-point p {
+  font-size: 1.75rem;
+  margin-top: 1rem;
+  color: #444444;
+}
+
+.term-box-point-contact-no {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1280px) {
+  .term-container-box {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1140px) {
+  .term-container-box {
+    width: 95%;
+  }
+}
+
+@media (max-width: 769px) {
+  .term-container-box {
+    width: 100%;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Terms and Conditions</h1>
+        <p class="hero-heading-secondary">
+          Read our Legal Norms of Terms and Conditions
+        </p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="term-section">
+  <div class="term-container reveal max-width">
+    
+
+    <div class="term-container-box">
+
+
+      {% if terms_list %}
+        <p class="term-update-date">Last updated: {{ terms_list.0.created_at|date:"F d, Y" }}</p>
+      {% endif %}
+      
+      {% for t in terms_list %}
+      <div class="term-box-point">
+        <h1>{{t.id}} .{{ t.title }}</h1>
+        <p>{{ t.content }}</p>
+      </div>
+      {% endfor %}
+
+      
+      
+      <div class="term-box-point">
+        <h1>1. Agreement to Terms</h1>
+        <p>
+          By accessing and using the services of Imperial Luxury Event
+          Management, you agree to be bound by these Terms and Conditions.
+          If you do not agree with any part of these terms, you may not
+          access or use our services.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>2. Services</h1>
+        <p>
+          Imperial Luxury Event Management provides comprehensive event
+          management services, including event planning, coordination,
+          design, styling, and execution for weddings, corporate events,
+          social gatherings, and other luxury events.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>3. Booking and Payment</h1>
+        <p>
+          A deposit is required to confirm and secure your event date. The
+          remaining payment terms, schedules, and methods will be clearly
+          outlined in the service agreement or invoice provided to the
+          client. Cancellation and refund policies may vary depending on
+          the nature, scale, and timing of the event.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>4. Client Responsibilities</h1>
+        <p>
+          Clients are responsible for providing accurate information,
+          timely decisions, approvals, and necessary documentation to
+          ensure smooth planning and successful execution of the event.
+          Any delays caused by the client may impact timelines and
+          outcomes.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>5. Liability</h1>
+        <p>
+          While Imperial Luxury Event Management strives to deliver
+          exceptional service, we are not liable for circumstances beyond
+          our control. This includes, but is not limited to, vendor
+          failures, venue-related issues, weather conditions, natural
+          disasters, government restrictions, or other force majeure
+          events.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>6. Intellectual Property</h1>
+        <p>
+          All concepts, designs, layouts, décor ideas, plans, documents,
+          and creative materials developed by Imperial Luxury Event
+          Management remain our intellectual property unless otherwise
+          agreed upon in writing.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>7. Changes to Terms</h1>
+        <p>
+          Imperial Luxury Event Management reserves the right to update or
+          modify these Terms and Conditions at any time without prior
+          notice. Continued use of our services constitutes acceptance of
+          the updated terms.
+        </p>
+      </div>
+
+      <div class="term-box-point">
+        <h1>8. Contact Information</h1>
+        <p>
+          For any questions regarding these Terms and Conditions, please
+          contact:
+        </p>
+        <h2 class="term-box-point-contact-no">+91 9373837071</h2>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+{% endblock %}

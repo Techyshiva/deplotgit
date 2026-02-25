@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Imperial</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playwrite+NZ:wght@100..400&display=swap');
+
+        html {
+        font-size: 62.5%;
+        }
+
+        .login-body {
+        margin: 0;
+        padding: 0;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+        background: linear-gradient(135deg, rgb(37, 6, 65), rgb(70, 18, 118));
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .login-container {
+        width: 100%;
+        max-width: 40rem;
+        padding: 2rem;
+        }
+
+        .login-card {
+        background: rgba(70, 18, 118, 0.45);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 236, 223, 0.1);
+        border-radius: 20px;
+        padding: 4rem 3rem;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        }
+
+        .login-logo {
+        height: 6rem;
+        object-fit: contain;
+        margin-bottom: 1.5rem;
+        }
+
+        .login-header h2 {
+        color: rgb(252, 207, 93);
+        font-size: 2.8rem;
+        margin: 0;
+        font-family: "Playwrite NZ Basic", cursive;
+        }
+
+        .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        }
+
+        .messages {
+        list-style: none;
+        padding: 1.5rem;
+        margin: 0;
+        background-color: rgba(255, 0, 0, 0.1);
+        border-left: 4px solid rgb(252, 207, 93);
+        border-radius: 5px;
+        text-align: center; 
+        }
+
+        .error {
+        color: rgb(252, 207, 93);
+        font-size: 1.4rem;
+        text-align: center;
+        }
+
+        .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        }
+
+        .input-group label {
+        color: rgb(248, 226, 221);
+        font-size: 1.6rem;
+        }
+
+        .input-group input {
+        background: rgba(37, 6, 65, 0.6);
+        border: 1px solid rgba(177, 136, 214, 0.4);
+        padding: 1.2rem 1.5rem;
+        border-radius: 10px;
+        color: rgb(255, 236, 223);
+        font-size: 1.6rem;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-group input:focus {
+        border-color: rgb(252, 207, 93);
+        box-shadow: 0 0 10px rgba(252, 207, 93, 0.2);
+        }
+
+        .login-btn {
+        margin-top: 1rem;
+        height: 5.2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(85, 25, 145);
+        color: rgb(255, 236, 223);
+        font-size: 2rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 999px;
+        border: none;
+        box-shadow: 0 0px 30px rgba(70, 18, 118, 0.5);
+        transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .login-btn:hover {
+        background-color: rgb(105, 30, 175);
+        box-shadow: 0 0px 40px rgba(70, 18, 118, 0.65);
+        color: rgb(252, 207, 93);
+        }
+
+        .login-btn:active {
+        box-shadow: 0 6px 16px rgba(70, 18, 118, 0.45);
+        transform: scale(0.98);
+        }
+
+        @media (max-width: 450px) {
+        .login-card {
+            padding: 3rem 2rem;
+            margin: 0 1.5rem;
+        }
+        
+        .login-header h2 {
+            font-size: 2.2rem;
+        }
+        }
+    </style>
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="{% static 'images/material/logo/imperial_logo.png' %}" alt="Imperial Logo" class="login-logo">
+                <h2>Admin Login</h2>
+            </div>
+            
+            <form method="POST" action="{% url 'admin_login' %}" class="login-form">
+                {% csrf_token %}
+                
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li class="error">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Admin Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

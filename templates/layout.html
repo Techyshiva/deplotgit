@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+      {% block title %}
+        The Imperial Events
+      {% endblock %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/media.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/general.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img class="nav-img" src="{% static 'images/material/logo/imperial_w_logo.png' %}" alt="" />
+        <div class="nav-link">
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'plan_event' %}">Plan Your Event</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'wedding' %}">Weddings</a></li>
+            <li><a href="{% url 'corporate' %}">Corporate</a></li>
+            <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+            <li><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+          <a href="plan_event.html" class="nav-btn">Get Quote</a>
+        </div>
+        <div class="nav-link-mobile">
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'plan_event' %}">Plan Your Event</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'wedding' %}">Weddings</a></li>
+            <li><a href="{% url 'corporate' %}">Corporate</a></li>
+            <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+            <li><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <button>
+              <a href="{% url 'plan_event' %}">Get Quote</a>
+            </button>
+          </ul>
+        </div>
+        <ion-icon class="menu-btn" name="menu-outline"></ion-icon>
+      </nav>
+    </header>
+    <!-- 
+    
+    
+    
+    .
+    
+    
+    
+    
+    -->
+    <main>
+      {% block content %} 
+      
+      {% endblock %}
+    </main>
+    <!-- FOOTER SECTION -->
+    <footer class="footer-section">
+      <div class="footer-content max-width">
+        <div class="footer-about">
+          <a href=""><img src="{% static 'images/material/logo/imperial_w_logo.png' %}" /></a>
+          <p class="footer-about-secondary">
+            Creating unforgettable experiences with elegance and precision since
+            2010.
+          </p>
+          <ul class="footer-about-social-icon">
+            <li>
+              <a
+                href="https://www.instagram.com/shivam_mhaske_?igsh=anNzaGsyZWd3ZTd1"
+                ><ion-icon name="logo-facebook"></ion-icon
+              ></a>
+              <a
+                href="https://www.instagram.com/shivam_mhaske_?igsh=anNzaGsyZWd3ZTd1"
+                ><ion-icon name="logo-instagram"></ion-icon
+              ></a>
+              <a href="https://www.linkedin.com/in/mhaskeshivam/"
+                ><ion-icon name="logo-twitter"></ion-icon
+              ></a>
+              <a href="https://www.linkedin.com/in/mhaskeshivam/"
+                ><ion-icon name="logo-linkedin"></ion-icon
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-link">
+          <div class="footer-link-heading">Quick Links</div>
+          <div class="footer-link-content">
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'services' %}">Services</a></li>
+              <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+              <li><a href="{% url 'about' %}">About Us</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+              <li><a href="{% url 'career' %}">Careers</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-link">
+          <div class="footer-link-heading">Our Services</div>
+          <div class="footer-link-content">
+            <ul>
+              <li><a href="{% url 'wedding' %}">Weddings</a></li>
+              <li><a href="{% url 'corporate' %}">Corporate Events</a></li>
+              <li><a href="{% url 'themes' %}">Themes & Decor</a></li>
+              <li><a href="{% url 'facilities' %}">Facilitites</a></li>
+              <li><a href="{% url 'blog' %}">Blog</a></li>
+              <li><a href="{% url 'faq' %}">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-link-heading footer-contact-heading">
+            Contact Us
+          </div>
+          <div class="footer-contact-list">
+            <ul>
+              <li>
+                <ion-icon name="location-outline"></ion-icon> Imperial Heights,
+                Plot 377, Ghansoli Sec-4, Navi Mumbai 400701
+              </li>
+              <li><ion-icon name="call-outline"></ion-icon> +91-9372827071</li>
+              <li>
+                <ion-icon name="mail-outline"></ion-icon>
+                mhaskeshivam1@gmail.com
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-copyright max-width">
+        <p>© 2026 Elite Events. All rights reserved.</p>
+        <span>
+          <a href="{% url 'privacy' %}">Privacy Policy</a> |
+          <a href="{% url 'terms' %}">Terms & Conditions</a>
+        </span>
+      </div>
+    </footer>
+    <script
+      type="module"
+      src="https://unpkg.com/@splinetool/viewer@1.12.42/build/spline-viewer.js"
+    ></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/slider.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+
+<style>
+    /* Quick Access Dashboard */
+    .quick-access-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .quick-access-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--panel-color);
+        border-radius: 12px;
+        width: calc(100% / 3 - 20px);
+        padding: 35px 20px;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border-color);
+        transition: var(--tran-03);
+        cursor: pointer;
+    }
+
+    .quick-access-card i {
+        font-size: 45px;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        transition: var(--tran-03);
+    }
+
+    .quick-access-card .text {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-color);
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Hover Effects */
+    .quick-access-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(70, 18, 118, 0.15);
+        border-color: var(--primary-color);
+    }
+
+    .quick-access-card:hover i {
+        color: var(--accent-gold);
+        transform: scale(1.1);
+    }
+
+    /* Responsive adjustments for the cards */
+    @media (max-width: 780px) {
+        .quick-access-card {
+            width: calc(100% / 2 - 20px);
+        }
+    }
+
+    @media (max-width: 560px) {
+        .quick-access-card {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="dash-content">
+    
+    <div class="title" style="justify-content: center; margin-bottom: 40px;">
+        <i class="uil uil-bolt-alt"></i>
+        <span class="text">Quick Access</span>
+    </div>
+
+    <div class="boxes" style="justify-content: center; gap: 20px;">
+        
+        <a href="{% url 'admin_booking' %}" class="box box1" style="text-decoration: none; width: calc(100% / 3 - 20px); text-align: center; cursor: pointer;">
+            <i class="uil uil-calendar-alt" style="margin-bottom: 10px;"></i>
+            <span class="text" style="display: block; width: 100%; text-align: center;">View Booking Enquiries</span>
+        </a>
+        
+        <a href="{% url 'admin_inquiry' %}" class="box box2" style="text-decoration: none; width: calc(100% / 3 - 20px); text-align: center; cursor: pointer;">
+            <i class="uil uil-comment-question" style="margin-bottom: 10px;"></i>
+            <span class="text" style="display: block; width: 100%; text-align: center;">View General Enquiries</span>
+        </a>
+        
+        <a href="{% url 'admin_portfolio' %}" class="box box3" style="text-decoration: none; width: calc(100% / 3 - 20px); text-align: center; cursor: pointer;">
+            <i class="uil uil-scenery" style="margin-bottom: 10px;"></i>
+            <span class="text" style="display: block; width: 100%; text-align: center;">Manage Portfolio</span>
+        </a>
+
+        <a href="{% url 'admin_gallery' %}" class="box box1" style="text-decoration: none; width: calc(100% / 3 - 20px); text-align: center; cursor: pointer; margin-top: 20px;">
+            <i class="uil uil-images" style="margin-bottom: 10px;"></i>
+            <span class="text" style="display: block; width: 100%; text-align: center;">Manage Gallery</span>
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

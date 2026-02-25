@@ -1,0 +1,267 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/protfolio/carousel1.avif' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.portfolio {
+  width: 100%;
+  padding: 8rem 10%;
+  margin-top: -5rem; /* Adjusted for the strip */
+}
+
+/* The Grid Layout */
+.gridbox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* FORCE exactly 3 columns */
+  gap: 3rem;
+  width: 100%;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+/* Individual Card Container */
+.portfolio-card {
+  position: relative;
+  height: 40rem;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 1rem 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effect: Slight lift */
+.portfolio-card:hover {
+  transform: translateY(-0.5rem);
+}
+
+/* The Image */
+.portfolio-card .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Zoom image slightly on hover */
+.portfolio-card:hover .card-img {
+  transform: scale(1.05);
+}
+
+/* The Dark Gradient Overlay */
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+/* Text Styling */
+.card-category {
+  color: #ffc107;
+  font-size: 1rem; 
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: "Playwrite NZ Basic", sans-serif;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.1rem;
+}
+
+.card-title {
+  color: rgb(244, 226, 214);
+  font-size: 3rem; 
+  font-weight: 700;
+  margin: 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+/* Media Queries */
+@media (max-width: 1280px) {
+  .portfolio {
+    padding: 8rem 5%;
+  }
+}
+
+@media (max-width: 1140px) {
+  .gridbox {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 4rem; 
+  }
+}
+
+@media (max-width: 769px) {
+  .portfolio {
+    padding: 6rem 5%; 
+  }
+
+  .gridbox {
+    grid-template-columns: 1fr; 
+    gap: 3rem;
+  }
+
+  .portfolio-card {
+    height: 35rem;
+  }
+
+  .card-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio {
+    padding: 4rem 2rem; 
+  }
+
+  .portfolio-card {
+    height: 32rem; 
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Our Portfolio</h1>
+        <p class="hero-heading-secondary">
+          Showcasing Excellence in Every Event
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio">
+  <div class="gridbox reveal max-width">
+    {% for portfolio in portfolios %}
+    <div class="portfolio-card">
+        <img src="{{ portfolio.image.url }}" class="card-img">
+        <div class="card-overlay">
+            <span class="card-category">
+                {{ portfolio.get_display_category }}
+            </span>
+            <h3 class="card-title">
+                {{ portfolio.title }}
+            </h3>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="portfolio-card">
+      <img
+        src="{% static 'images/material/protfolio/portfolio01.webp' %}"
+        alt="Royal Wedding"
+        class="card-img"
+      />
+      <div class="card-overlay">
+        <span class="card-category">Wedding</span>
+        <h3 class="card-title">Royal Wedding</h3>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <img
+        src="{% static 'images/material/protfolio/portfolio02.jpg' %}"
+        alt="Tech Summit"
+        class="card-img"
+      />
+      <div class="card-overlay">
+        <span class="card-category">Corporate</span>
+        <h3 class="card-title">Tech Summit</h3>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <img
+        src="{% static 'images/material/protfolio/portfolio03.webp' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+      <div class="card-overlay">
+        <span class="card-category">Social</span>
+        <h3 class="card-title">Birthday Gala</h3>
+      </div>
+    </div>
+    
+    <div class="portfolio-card">
+      <img
+        src="{% static 'images/material/protfolio/portfolio04.webp' %}"
+        alt="Royal Wedding"
+        class="card-img"
+      />
+      <div class="card-overlay">
+        <span class="card-category">Wedding</span>
+        <h3 class="card-title">Luxury Venue</h3>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <img
+        src="{% static 'images/material/protfolio/portfolio05.avif' %}"
+        alt="Tech Summit"
+        class="card-img"
+      />
+      <div class="card-overlay">
+        <span class="card-category">Corporate</span>
+        <h3 class="card-title">Stage Setup</h3>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <img
+        src="{% static 'images/material/protfolio/portfolio06.webp' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+      <div class="card-overlay">
+        <span class="card-category">Corporate</span>
+        <h3 class="card-title">Event Team</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

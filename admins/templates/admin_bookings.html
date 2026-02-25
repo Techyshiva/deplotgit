@@ -1,0 +1,152 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+<style>
+    .section-title {
+        text-align: center;
+        margin: 30px 0 20px;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .bookings-container {
+        width: 95%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .booking-card {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        padding: 20px;
+        gap: 10px;
+        position: relative;
+    }
+
+    .booking-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .booking-label {
+        font-weight: 600;
+        width: 120px;
+        flex-shrink: 0;
+    }
+
+    .booking-value {
+        flex: 1;
+        word-wrap: break-word;
+    }
+
+    .booking-info {
+        margin-top: 10px;
+        background: #f9f9f9;
+        padding: 12px;
+        border-radius: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        font-size: 14px;
+    }
+
+    .booking-actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .action-btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background: #a71d2a;
+    }
+
+    .edit-btn {
+        background: #007bff;
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background: #0056b3;
+    }
+
+    /* Scroll for large number of bookings */
+    .bookings-container {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+</style>
+
+<h2 class="section-title">All Booking Enquiries</h2>
+
+<div class="bookings-container">
+    {% for b in bookings %}
+        <div class="booking-card">
+            <div class="booking-row">
+                <div class="booking-label">Name:</div>
+                <div class="booking-value">{{ b.full_name }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">Email:</div>
+                <div class="booking-value">{{ b.email }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">Mobile:</div>
+                <div class="booking-value">{{ b.mobile_number }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">Event Type:</div>
+                <div class="booking-value">{{ b.event_type }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">Date:</div>
+                <div class="booking-value">{{ b.event_date }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">City:</div>
+                <div class="booking-value">{{ b.event_city }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">Guests:</div>
+                <div class="booking-value">{{ b.expected_guests }}</div>
+            </div>
+            <div class="booking-row">
+                <div class="booking-label">Budget:</div>
+                <div class="booking-value">{{ b.event_budget }}</div>
+            </div>
+            <div class="booking-info">
+                <strong>Additional Info:</strong>
+                <div>{{ b.additional_info }}</div>
+            </div>
+            <div class="booking-actions">
+                <a href="{% url 'delete_booking' b.pk %}" class="action-btn delete-btn"
+                   onclick="return confirm('Delete this booking?')">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <div style="text-align:center; padding: 20px; font-size:16px;">No bookings found.</div>
+    {% endfor %}
+</div>
+
+{% endblock %}

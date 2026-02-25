@@ -1,0 +1,46 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+<style>
+.section-title { text-align: center; margin: 30px 0 20px; }
+.admin-form { width: 650px; margin: auto; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.form-group { margin-bottom: 18px; }
+.form-group label { font-weight: 600; display: block; margin-bottom: 6px; }
+.admin-form input, .admin-form textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box; }
+.submit-btn { width: 100%; background: black; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+.policy-list { width: 85%; margin: 50px auto; }
+.policy-item { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 15px; border-left: 5px solid #dcb66a; }
+.policy-item h3 { margin-top: 0; color: #461276; }
+.policy-actions { margin-top: 15px; }
+.policy-actions a { padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; color: white; margin-right: 5px; }
+.edit-btn { background: #007bff; }
+.delete-btn { background: #dc3545; }
+</style>
+
+<h2 class="section-title">{% if edit_mode %} Edit Privacy Point {% else %} Add Privacy Point {% endif %}</h2>
+
+<form method="POST" class="admin-form">
+    {% csrf_token %}
+    <div class="form-group"><label>Title (e.g., 1. Information We Collect)</label>{{ form.title }}</div>
+    <div class="form-group"><label>Content</label>{{ form.content }}</div>
+    <div class="form-group"><label>Order</label>{{ form.order }}</div>
+    <button type="submit" class="submit-btn">{% if edit_mode %} Update {% else %} Add Point {% endif %}</button>
+</form>
+
+<hr>
+
+<h2 class="section-title">Current Privacy Policy</h2>
+<div class="policy-list">
+    {% for p in policies %}
+    <div class="policy-item">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.content|truncatechars:100 }}</p>
+        <div class="policy-actions">
+            <a href="{% url 'edit_privacy' p.pk %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete_privacy' p.pk %}" class="delete-btn" onclick="return confirm('Delete this point?')">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

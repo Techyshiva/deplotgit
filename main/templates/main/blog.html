@@ -1,0 +1,272 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/blog/carousel01.webp' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.blog {
+  width: 100%;
+  padding: 8rem 10% 10rem 10%;
+  margin-top: -3rem; /* Pull up to cover Hero margin */
+}
+
+/* THE GRID CONTAINER */
+.blog-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+  gap: 3rem; /* Generous gap between cards */
+  width: 100%;
+}
+
+/* INDIVIDUAL CARD */
+.blog-card {
+  background-color: rgb(255, 236, 223);
+  border-radius: 1.5rem;
+  overflow: hidden; /* Clips the image at the top corners */
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08); /* Soft shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Stacks image on top of text */
+}
+
+/* Card Hover Effect */
+.blog-card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+}
+
+/* IMAGE SECTION */
+.blog-img-box {
+  width: 100%;
+  height: 20rem; /* Fixed height for uniformity */
+  overflow: hidden;
+}
+
+.blog-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Zoom image on hover */
+.blog-card:hover .blog-img-box img {
+  transform: scale(1.05);
+}
+
+/* CONTENT SECTION */
+.blog-content {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blog-date {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #999999; /* Purple Date Color */
+  text-transform: uppercase;
+}
+
+.blog-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin: 0.5rem 0;
+  margin-top: 0rem;
+  line-height: 1.3;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.blog-desc {
+  font-size: 1.6rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.blog-desc:hover {
+  color: #444;
+}
+
+/* READ MORE LINK */
+.read-more {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(177, 136, 214);
+  text-decoration: none;
+  margin-top: auto; /* Pushes button to bottom if text lengths vary */
+  transition: color 0.3s ease;
+}
+
+.read-more:hover {
+  color: #5a189a; /* Darker purple on hover */
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1280px) {
+  .blog {
+    padding: 8rem 5% 10rem 5%;
+  }
+}
+
+/* @ 1140px: Switch from 3 Columns to 2 Columns */
+@media (max-width: 1140px) {
+  .blog-box {
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns */
+    gap: 3rem;
+  }
+}
+
+/* @ 769px: Switch to 1 Column (Tablet/Mobile) */
+@media (max-width: 769px) {
+  .blog {
+    padding: 6rem 5%; /* Reduce top/bottom padding */
+  }
+
+  .blog-box {
+    grid-template-columns: 1fr; /* 1 Column */
+    gap: 4rem;
+  }
+
+  /* Reduce image height slightly so cards aren't too tall on mobile */
+  .blog-img-box {
+    height: 22rem;
+  }
+}
+
+/* @ 480px: Small Mobile */
+@media (max-width: 480px) {
+  .blog {
+    padding: 4rem 2rem; /* Tight padding */
+  }
+
+  .blog-content {
+    padding: 2rem; /* Reduce internal card padding */
+  }
+
+  .blog-title {
+    font-size: 2rem; /* Slightly smaller title */
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Blog & Insights</h1>
+        <p class="hero-heading-secondary">
+          Expert Advice and Industry Trends for Your Next Event
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog">
+  <div class="blog-box max-width">
+
+    {% for post in posts %}
+          <div class="blog-card reveal">
+            <div class="blog-img-box">
+              <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+            </div>
+            <div class="blog-content">
+              <span class="blog-date">{{ post.date|date:"M d, Y" }}</span>
+              <h3 class="blog-title">{{ post.title }}</h3>
+              <p class="blog-desc">{{ post.description }}</p>
+              <a href="#" class="read-more">Read More &rarr;</a>
+            </div>
+          </div>
+          
+          {% endfor %}
+    
+    <div class="blog-card reveal">
+      <div class="blog-img-box">
+
+        
+
+        <img src="{% static 'images/material/blog/blog01.jpg' %}" alt="Wedding Trends" />
+      </div>
+      <div class="blog-content">
+        <span class="blog-date">Jan 15, 2026</span>
+        <h3 class="blog-title">Top Wedding Trends 2026</h3>
+        <p class="blog-desc">
+          Discover the latest trends in luxury weddings, from sustainable
+          decor to immersive guest experiences.
+        </p>
+        <a href="#" class="read-more">Read More &rarr;</a>
+      </div>
+    </div>
+
+    <div class="blog-card reveal">
+      <div class="blog-img-box">
+        <img src="{% static 'images/material/blog/blog03.jpeg' %}" alt="Corporate Event" />
+      </div>
+      <div class="blog-content">
+        <span class="blog-date">Jan 10, 2026</span>
+        <h3 class="blog-title">Best Event Practices</h3>
+        <p class="blog-desc">
+          How to plan successful corporate events that boost engagement
+          and leave a lasting impression.
+        </p>
+        <a href="#" class="read-more">Read More &rarr;</a>
+      </div>
+    </div>
+
+    <div class="blog-card reveal">
+      <div class="blog-img-box">
+        <img src="{% static 'images/material/blog/blog02.jpeg' %}" alt="Event Budgeting" />
+      </div>
+      <div class="blog-content">
+        <span class="blog-date">Jan 5, 2026</span>
+        <h3 class="blog-title">Event Budgeting Guide</h3>
+        <p class="blog-desc">
+          Smart strategies for event budgeting to maximize impact without
+          breaking the bank.
+        </p>
+        <a href="#" class="read-more">Read More &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,341 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/card/card2.jpg' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.corporate-section {
+  height: auto;
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.corporate-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.corporate-row.reverse {
+  direction: rtl;
+}
+
+.corporate-row.reverse > * {
+  direction: ltr;
+}
+
+.corporate-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.corporate-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.corporate-image img:hover {
+  transform: scale(1.1);
+}
+
+.corporate-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.corporate-content .corporate-heading {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.corporate-content .corporate-heading:hover {
+  color: rgb(77, 18, 133);
+}
+
+.corporate-content .corporate-subheading {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.corporate-content .corporate-subheading:hover {
+  color: rgb(199, 148, 19);
+}
+
+.corporate-desc {
+  font-size: 1.6rem;
+  margin-bottom: 2.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555555;
+  transition: all 0.3s ease-in-out;
+}
+
+.corporate-desc:hover {
+  color: #333333;
+}
+
+.corporate-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.corporate-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.corporate-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.corporate-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.corporate-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.corporate-icon i {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .corporate-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .corporate-row.reverse {
+    direction: ltr;
+  }
+
+  .corporate-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .corporate-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .corporate-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Corporate</h1>
+        <p class="hero-heading-secondary">
+          Elevate your corporate experience with Imperial Event
+        </p>
+        <a href="{% url 'plan_event' %}" class="hero-btn">Plan Your Event</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="corporate-section">
+  <div class="corporate-container max-width">
+    <div class="corporate-row reveal">
+      <div class="corporate-image">
+        <img
+          src="{% static 'images/material/corporate/card/card1.png' %}"
+          alt="Conferences & Seminars"
+        />
+      </div>
+
+      <div class="corporate-content">
+        <div class="corporate-icon">
+          <i class="fa-solid fa-handshake"></i>
+        </div>
+        <h2 class="corporate-heading">Conferences & Seminars</h2>
+        <p class="corporate-subheading">
+          Where ideas meet influence and knowledge takes center stage.
+        </p>
+
+        <p class="corporate-desc">
+          We plan and manage conferences and seminars with seamless
+          coordination, professional staging, and advanced audio-visual
+          support. Every session is structured to engage audiences,
+          empower speakers, and deliver meaningful corporate impact.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="corporate-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="corporate-row reveal reverse">
+      <div class="corporate-image">
+        <img
+          src="{% static 'images/material/corporate/card/card2.png' %}"
+          alt="Product Launch Events"
+        />
+      </div>
+
+      <div class="corporate-content">
+        <div class="corporate-icon">
+          <i class="fa-solid fa-rocket"></i>
+        </div>
+
+        <h2 class="corporate-heading">Product Launch Events</h2>
+        <p class="corporate-subheading">
+          Turning innovation into unforgettable first impressions.
+        </p>
+
+        <p class="corporate-desc">
+          From concept to grand reveal, we execute product launch events
+          that create excitement, highlight brand value, and leave a
+          powerful market impact.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="corporate-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="corporate-row reveal">
+      <div class="corporate-image">
+        <img
+          src="{% static 'images/material/corporate/card/card3.png' %}"
+          alt="Corporate Meetings"
+        />
+      </div>
+
+      <div class="corporate-content">
+        <div class="corporate-icon">
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+
+        <h2 class="corporate-heading">Corporate Meetings</h2>
+        <p class="corporate-subheading">
+          Professional spaces designed for powerful decisions.
+        </p>
+
+        <p class="corporate-desc">
+          We organize refined corporate meetings with structured setups,
+          smooth logistics, and complete technical support. Our
+          environments are crafted to encourage focused discussions,
+          strategic thinking, and productive business outcomes.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="corporate-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="corporate-row reveal reverse">
+      <div class="corporate-image">
+        <img src="{% static 'images/material/corporate/card/card4.png' %}" alt="Award ceremonies" />
+      </div>
+
+      <div class="corporate-content">
+        <div class="corporate-icon">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+
+        <h2 class="corporate-heading">Award ceremonies</h2>
+        <p class="corporate-subheading">
+          Celebrating success, honoring excellence.
+        </p>
+
+        <p class="corporate-desc">
+          Elegant award ceremonies that recognize achievements with
+          prestige and grace. From stage design to show flow, we create
+          memorable moments that truly honor talent, leadership, and
+          organizational success.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="corporate-btn">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container max-width">
+    <h2 class="reveal">Power Your Next Corporate Event</h2>
+    <p class="reveal">
+      Let us design a professional experience that strengthens your brand
+      and business impact
+    </p>
+
+    <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+      Start Planning Now
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

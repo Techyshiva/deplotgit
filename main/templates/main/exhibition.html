@@ -1,0 +1,363 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/card/card7.png' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.hero-heading-primary {
+  font-size: 5.4rem;
+}
+
+.exhibition-section {
+  height: auto;
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.exhibition-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.exhibition-row.reverse {
+  direction: rtl;
+}
+
+.exhibition-row.reverse > * {
+  direction: ltr;
+}
+
+.exhibition-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.exhibition-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.exhibition-image img:hover {
+  transform: scale(1.1);
+}
+
+.exhibition-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.exhibition-content .exhibition-heading {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.exhibition-content .exhibition-heading:hover {
+  color: rgb(77, 18, 133);
+}
+
+.exhibition-content .exhibition-subheading {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.exhibition-content .exhibition-subheading:hover {
+  color: rgb(199, 148, 19);
+}
+
+.exhibition-desc {
+  font-size: 1.6rem;
+  margin-bottom: 2.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555555;
+  transition: all 0.3s ease-in-out;
+}
+
+.exhibition-desc:hover {
+  color: #333333;
+}
+
+.exhibition-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.exhibition-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.exhibition-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.exhibition-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.exhibition-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.exhibition-icon i {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .exhibition-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .exhibition-row.reverse {
+    direction: ltr;
+  }
+
+  .exhibition-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .exhibition-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .exhibition-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Exhibitions & Fashion Shows</h1>
+        <p class="hero-heading-secondary">
+          Where brands shine and style speaks
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="exhibition-section">
+  <div class="exhibition-container max-width">
+    <div class="exhibition-row reveal">
+      <div class="exhibition-image">
+        <img
+          src="{% static 'images/material/exhibition/card1.png' %}"
+          alt="Corporate Exhibitions"
+        />
+      </div>
+
+      <div class="exhibition-content">
+        <div class="exhibition-icon">
+          <i class="fa-solid fa-person-chalkboard"></i>
+        </div>
+
+        <h2 class="exhibition-heading">Corporate Exhibitions</h2>
+        <p class="exhibition-subheading">
+          From innovative concepts to impactful showcases, we design
+          exhibitions that elevate brand presence.
+        </p>
+
+        <p class="exhibition-desc">
+          Corporate exhibitions are powerful platforms to present
+          products, services, and brand identity. From creative stall
+          designs and strategic layouts to professional branding and
+          visitor engagement, every detail is carefully planned. Our
+          exhibitions are designed to attract attention, create meaningful
+          interactions, and leave a lasting impression on your audience
+          and business partners.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="exhibition-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="exhibition-row reveal reverse">
+      <div class="exhibition-image">
+        <img
+          src="{% static 'images/material/exhibition/card2.png' %}"
+          alt="Trade Shows & Expos"
+        />
+      </div>
+
+      <div class="exhibition-content">
+        <div class="exhibition-icon">
+          <i class="fa-solid fa-arrow-trend-up"></i>
+        </div>
+
+        <h2 class="exhibition-heading">Trade Shows & Expos</h2>
+        <p class="exhibition-subheading">
+          From planning to presentation, we create exhibitions that drive
+          visibility and growth.
+        </p>
+
+        <p class="exhibition-desc">
+          Trade shows and expos demand precision, creativity, and flawless
+          execution. We handle complete exhibition management including
+          space planning, branding elements, lighting, and coordination.
+          Our focus is to help businesses connect with visitors, generate
+          leads, and build strong market presence through well-executed
+          exhibitions.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="exhibition-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="exhibition-row reveal">
+      <div class="exhibition-image">
+        <img
+          src="{% static 'images/material/exhibition/card3.png' %}"
+          alt="Brand Stalls"
+        />
+      </div>
+
+      <div class="exhibition-content">
+        <div class="exhibition-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+
+        <h2 class="exhibition-heading">Brand Stalls</h2>
+        <p class="exhibition-subheading">
+          Custom-designed spaces that reflect your brand story and attract
+          the right audience
+        </p>
+
+        <p class="exhibition-desc">
+          We create visually compelling and strategically planned brand
+          stalls that stand out in any exhibition environment. From
+          modular designs and interactive displays to technology
+          integration and crowd flow planning, we ensure your stall
+          becomes a magnet for visitors and meaningful business
+          conversations.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="exhibition-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="exhibition-row reveal reverse">
+      <div class="exhibition-image">
+        <img
+          src="{% static 'images/material/exhibition/card4.png' %}"
+          alt="Fashion Shows"
+        />
+      </div>
+
+      <div class="exhibition-content">
+        <div class="exhibition-icon">
+          <i class="fa-solid fa-shirt"></i>
+        </div>
+
+        <h2 class="exhibition-heading">Fashion Shows</h2>
+        <p class="exhibition-subheading">
+          Runways crafted for elegance, expression, and impact
+        </p>
+
+        <p class="exhibition-desc">
+          We design and manage fashion shows that blend creativity with
+          flawless execution. From runway setup, lighting, choreography,
+          and model coordination to backstage management and music design,
+          every element is curated to present collections with confidence,
+          glamour, and unforgettable visual appeal.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="exhibition-btn">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container max-width">
+    <h2 class="reveal">Showcase with Style</h2>
+    <p class="reveal">
+      Transform your exhibition or runway into an experience that
+      attracts, inspires, and performs
+    </p>
+
+    <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+      Start Planning Now
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

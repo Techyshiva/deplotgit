@@ -1,0 +1,143 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        form {
+            width: 450px;
+            margin: 0 auto 40px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: black;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        hr {
+            margin: 40px 0;
+        }
+
+        .gallery-list {
+            width: 80%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .gallery-actions a {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .edit-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #0056b3;
+        }
+
+        .delete-btn:hover {
+            background: #a71d2a;
+        }
+    </style>
+
+    <h2>Add Gallery Image</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            {% if edit_mode %} Update {% else %} Add {% endif %}
+        </button>
+    </form>
+
+    <hr>
+
+<h2>Gallery List</h2>
+
+<div class="gallery-list">
+{% for img in images %}
+    <div class="gallery-item">
+        <img src="{{ img.image.url }}">
+        <p>{{ img.alt_text }}</p>
+
+        <div class="gallery-actions">
+            <a href="{% url 'edit_gallery' img.pk %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete_gallery' img.pk %}" 
+               class="delete-btn"
+               onclick="return confirm('Delete this image?')">
+               Delete
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+    
+{% endblock  %}

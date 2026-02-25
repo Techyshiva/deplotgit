@@ -1,0 +1,386 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/carosel/carosel1.png' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.services-section {
+  height: auto;
+  width: 100%;
+}
+
+.service-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.service-row.reverse {
+  direction: rtl;
+}
+
+.service-row.reverse > * {
+  direction: ltr;
+}
+
+.service-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.service-image img:hover {
+  transform: scale(1.1);
+}
+
+.service-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.service-content h2 {
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.service-content p {
+  font-size: 1.6rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+
+.service-content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2.8rem;
+}
+
+.service-content ul li {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.service-content ul li:hover {
+  color: rgb(200, 148, 16);
+  transform: translate(10px);
+}
+
+.service-content ul li::before {
+  content: "•";
+  color: rgb(105, 30, 175);
+  position: absolute;
+  left: 0;
+}
+
+.service-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.service-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.service-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.service-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.service-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .service-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .service-row.reverse {
+    direction: ltr;
+  }
+
+  .service-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Our Services</h1>
+        <p class="hero-heading-secondary">
+          Comprehensive event management solutions tailored to your needs
+        </p>
+        <a href="{% url 'plan_event' %}" class="hero-btn">Plan Your Event</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section">
+  <div class="services-container max-width">
+    <div class="service-row reveal">
+      <div class="service-image">
+        <img
+          src="{% static 'images/material/services/card/card1.png' %}"
+          alt="Weddings Service"
+        />
+      </div>
+
+      <div class="service-content">
+        <div class="service-icon">
+          <ion-icon name="heart-outline"></ion-icon>
+        </div>
+
+        <h2>Weddings & Destination Weddings</h2>
+        <p>
+          From intimate ceremonies to grand celebrations, we create
+          unforgettable wedding experiences.
+        </p>
+
+        <ul>
+          <li>Venue Selection</li>
+          <li>Decor & Design</li>
+          <li>Catering Management</li>
+          <li>Photography & Videography</li>
+        </ul>
+
+        <a href="{% url 'wedding' %}" class="service-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="service-row reveal reverse">
+      <div class="service-image">
+        <img
+          src="{% static 'images/material/services/card/card2.jpg' %}"
+          alt="Corporate Events"
+        />
+      </div>
+
+      <div class="service-content">
+        <div class="service-icon">
+          <ion-icon name="briefcase-outline"></ion-icon>
+        </div>
+
+        <h2>Corporate Events & Conferences</h2>
+        <p>
+          Professional events that enhance your brand and engage your
+          audience.
+        </p>
+
+        <ul>
+          <li>Conference Planning</li>
+          <li>Team Building</li>
+          <li>Product Launches</li>
+          <li>AGM & Seminars</li>
+        </ul>
+
+        <a href="{% url 'corporate' %}" class="service-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-image">
+        <img src="{% static 'images/material/services/card/card3.png' %}" alt="Social Events" />
+      </div>
+
+      <div class="service-content">
+        <div class="service-icon">
+          <ion-icon name="gift-outline"></ion-icon>
+        </div>
+
+        <h2>Social Events</h2>
+        <p>
+          Birthdays, anniversaries, and milestone celebrations crafted to
+          perfection
+        </p>
+
+        <ul>
+          <li>Birthday Parties</li>
+          <li>Anniversary Celebrations</li>
+          <li>Engagement Parties</li>
+          <li>Baby Showers</li>
+        </ul>
+
+        <a href="{% url 'social_events' %}" class="service-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="service-row reveal reverse">
+      <div class="service-image">
+        <img
+          src="{% static 'images/material/services/card/card4.png' %}"
+          alt="Product Launches"
+        />
+      </div>
+
+      <div class="service-content">
+        <div class="service-icon">
+          <ion-icon name="rocket-outline"></ion-icon>
+        </div>
+
+        <h2>Product Launches & Brand Activations</h2>
+        <p>
+          Create buzz and excitement for your brand with our innovative
+          event solutions
+        </p>
+
+        <ul>
+          <li>Launch Events</li>
+          <li>Experiential Marketing</li>
+          <li>Pop-up Events</li>
+          <li>PR Campaigns</li>
+        </ul>
+
+        <a href="{% url 'product_launch' %}" class="service-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-image">
+        <img
+          src="{% static 'images/material/services/card/card7.png' %}"
+          alt="Exhibitions & Fashion Shows"
+        />
+      </div>
+
+      <div class="service-content">
+        <div class="service-icon">
+          <ion-icon name="color-palette-outline"></ion-icon>
+        </div>
+
+        <h2>Exhibitions & Fashion Shows</h2>
+        <p>
+          Showcase your vision with stunning exhibitions and runway shows
+        </p>
+
+        <ul>
+          <li>Fashion Shows</li>
+          <li>Art Exhibitions</li>
+          <li>Trade Shows</li>
+          <li>Gallery Events</li>
+        </ul>
+
+        <a href="{% url 'exhibition' %}" class="service-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="service-row reveal reverse">
+      <div class="service-image">
+        <img
+          src="{% static 'images/material/services/card/card6.png' %}"
+          alt="Entertainment & Concerts"
+        />
+      </div>
+
+      <div class="service-content">
+        <div class="service-icon">
+          <ion-icon name="musical-notes-outline"></ion-icon>
+        </div>
+
+        <h2>Entertainment & Concerts</h2>
+        <p>Live entertainment events that leave lasting impressions</p>
+
+        <ul>
+          <li>Concert Production</li>
+          <li>Artist Management</li>
+          <li>Stage Design</li>
+          <li>Sound & Lighting</li>
+        </ul>
+
+        <a href="{% url 'entertainment' %}" class="service-btn">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

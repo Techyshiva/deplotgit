@@ -1,0 +1,191 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/privacy/carousel01.avif' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.privacy-policy {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.privacy-container-box {
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+.privacy-update-date {
+  font-size: 1.6rem;
+  color: #666666;
+}
+
+.privacy-box-point h1 {
+  font-size: 2.6rem;
+  margin-top: 3.4rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: rgb(70, 18, 118);
+  text-align: left;
+}
+
+.privacy-box-point p {
+  font-size: 1.75rem;
+  margin-top: 1rem;
+  color: #444444;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1280px) {
+  .privacy-container-box {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1140px) {
+  .privacy-container-box {
+    width: 95%;
+  }
+}
+
+@media (max-width: 769px) {
+  .privacy-container-box {
+    width: 100%;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Privacy Policy</h1>
+        <p class="hero-heading-secondary">
+          The Privacy Policy of Imperial Luxury Event Management
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="privacy-policy">
+  <div class="privacy-container reveal max-width">
+    <div class="privacy-container-box">
+
+      {% if policies %}
+        <p class="privacy-update-date">Last updated: {{ policies.0.created_at|date:"F d, Y" }}</p>
+      
+      {% endif %}
+
+      {% for p in policies %}
+      <div class="privacy-box-point">
+        <h1>{{ p.title }}</h1>
+        <p>{{ p.content }}</p>
+      </div>
+      
+      {% endfor %}
+
+      <p class="privacy-update-date">Last updated: January 29, 2026</p>
+
+      <div class="privacy-box-point">
+        <h1>1. Information We Collect</h1>
+        <p>
+          We collect personal information that you voluntarily provide
+          when booking our services or contacting us. This may include
+          your name, contact details, event requirements, preferences, and
+          payment-related information.
+        </p>
+      </div>
+
+      <div class="privacy-box-point">
+        <h1>2. How We Use Your Information</h1>
+        <p>
+          The information collected is used to plan, manage, and execute
+          your events efficiently. We also use it to communicate with you,
+          process payments, respond to inquiries, and improve our services
+          and customer experience.
+        </p>
+      </div>
+
+      <div class="privacy-box-point">
+        <h1>3. Information Sharing</h1>
+        <p>
+          We share your information only with trusted vendors, service
+          providers, and partners who are directly involved in delivering
+          your event services. Information is shared strictly on a
+          need-to-know basis and only for service fulfillment purposes.
+        </p>
+      </div>
+
+      <div class="privacy-box-point">
+        <h1>4. Data Security</h1>
+        <p>
+          Imperial Luxury Event Management follows industry-standard
+          security practices to protect your personal information from
+          unauthorized access, loss, misuse, or disclosure.
+        </p>
+      </div>
+
+      <div class="privacy-box-point">
+        <h1>5. Your Rights</h1>
+        <p>
+          You have the right to access, update, correct, or request
+          deletion of your personal information. For any privacy-related
+          requests or concerns, please contact us at:
+          privacy@imperialluxuryevents.com
+        </p>
+      </div>
+
+      <div class="privacy-box-point">
+        <h1>6. Cookies</h1>
+        <p>
+          Our website uses cookies to enhance user experience, analyze
+          website traffic, and improve functionality. You can manage or
+          disable cookies through your browser settings at any time.
+        </p>
+      </div>
+
+      <div class="privacy-box-point">
+        <h1>7. Policy Updates</h1>
+        <p>
+          Imperial Luxury Event Management reserves the right to update or
+          modify this Privacy Policy at any time. Any changes will be
+          posted on this page, and continued use of our website or
+          services signifies acceptance of the updated policy.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

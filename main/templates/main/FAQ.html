@@ -1,0 +1,214 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://static.vecteezy.com/system/resources/thumbnails/019/824/384/small/inscription-faq-frequently-asked-questions-on-wooden-blocks-on-a-blue-background-photo.jpg") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.hero-heading-primary {
+  margin-bottom: 0rem;
+  font-size: 4.6rem;
+}
+
+.hero-heading-secondary {
+  margin-bottom: 2rem;
+}
+
+.faq-section {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.faq {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.question {
+  padding: 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: rgb(70, 18, 118);
+}
+
+.arrow {
+  font-size: 2rem;
+  transition: transform 0.5s;
+  color: rgb(70, 18, 118);
+}
+
+.answer {
+  padding: 0 1.8rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  color: #444444;
+  line-height: 1.6;
+  font-size: 1.4rem;
+}
+
+.faq.active .answer {
+  max-height: 20rem;
+  padding-bottom: 1.8rem;
+}
+
+.faq.active .arrow {
+  transform: rotate(180deg);
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Frequently Asked Questions</h1>
+        <p class="hero-heading-secondary">
+          Your Questions, Our Expertise
+        </p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="faq-container max-width">
+    <div class="faq-container-box reveal container-max-width">
+
+
+      {% for faq in faqs %}
+      <div class="faq">
+        <div class="question">
+          {{ faq.question }}
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          {{ faq.answer }}
+        </div>
+      </div>
+      
+      {% endfor %}
+      
+      <div class="faq">
+        <div class="question">
+          How far in advance should I book Imperial Events Management
+          Systems?
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          We recommend booking 6-12 months in advance for large events
+          such as weddings and destination events. For corporate or
+          private events, 3-6 months in advance is usually sufficient.
+          Early booking helps us secure the best venues and vendors for
+          your event.
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="question">
+          What is included in your services?
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          Our services include event planning, theme & décor design, venue
+          selection, vendor coordination, budgeting, logistics management,
+          entertainment planning, and on-day execution. We offer
+          customizable packages based on your event needs.
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="question">
+          Do you handle destination events?
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          Yes, we specialize in destination weddings and events. From
+          travel coordination to local vendor management and complete
+          event execution, we ensure a smooth and memorable destination
+          experience.
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="question">
+          What makes Imperial Events Management Systems different?
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          Our attention to detail, creative designs, professional
+          execution, and personalized approach set us apart. We focus on
+          turning your vision into reality while ensuring a stress-free
+          experience from start to finish.
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="question">
+          Can you work within my budget?
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          Absolutely! We customize our services to fit your budget while
+          maintaining quality and elegance.
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="question">
+          Do you provide day-of coordination?
+          <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+        </div>
+        <div class="answer">
+          Yes, we offer day-of coordination services to ensure everything
+          runs smoothly. Our team manages schedules, vendors, and
+          last-minute details so you can relax and enjoy your event.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/faq.js' %}" ></script>
+
+
+{% endblock %}

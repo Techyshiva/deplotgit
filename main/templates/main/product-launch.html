@@ -1,0 +1,332 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/card/card4.png' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.product-launch-section {
+  height: auto;
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.product-launch-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.product-launch-row.reverse {
+  direction: rtl;
+}
+
+.product-launch-row.reverse > * {
+  direction: ltr;
+}
+
+.product-launch-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.product-launch-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-launch-image img:hover {
+  transform: scale(1.1);
+}
+
+.product-launch-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.product-launch-content .product-launch-heading {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-launch-content .product-launch-heading:hover {
+  color: rgb(77, 18, 133);
+}
+
+.product-launch-content .product-launch-subheading {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-launch-content .product-launch-subheading:hover {
+  color: rgb(199, 148, 19);
+}
+
+.product-launch-desc {
+  font-size: 1.6rem;
+  margin-bottom: 2.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555555;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-launch-desc:hover {
+  color: #333333;
+}
+
+.product-launch-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.product-launch-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.product-launch-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-launch-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.product-launch-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.product-launch-icon i {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.product-launch-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .product-launch-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .product-launch-row.reverse {
+    direction: ltr;
+  }
+
+  .product-launch-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .product-launch-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-launch-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Product and launch</h1>
+        <p class="hero-heading-secondary">
+          Launch a brand, not just a product
+        </p>
+        <a href="{% url 'plan_event' %}" class="hero-btn">Plan Your Event</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="product-launch-section">
+  <div class="product-launch-container max-width">
+    
+    <div class="product-launch-row reveal">
+      <div class="product-launch-image">
+        <img
+          src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Product Launch Events"
+        />
+      </div>
+
+      <div class="product-launch-content">
+        <div class="product-launch-icon">
+          <i class="fa-solid fa-rocket"></i>
+        </div>
+
+        <h2 class="product-launch-heading">Launch Events</h2>
+        <p class="product-launch-subheading">
+          Create buzz and excitement for your brand with our innovative
+          event solutions.
+        </p>
+
+        <p class="product-launch-desc">
+          A successful product launch is about more than just a reveal;
+          it's about creating an unforgettable first impression. We
+          combine high-impact visuals, state-of-the-art sound technology,
+          and theatrical elements to ensure your product takes center
+          stage. From stage management to synchronized reveals, we handle
+          every detail to turn your launch into a market-defining moment.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="product-launch-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="product-launch-row reveal reverse">
+      <div class="product-launch-image">
+        <img
+          src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=1024"
+          alt="Experiential Marketing"
+        />
+      </div>
+
+      <div class="product-launch-content">
+        <div class="product-launch-icon">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+
+        <h2 class="product-launch-heading">Experiential Marketing</h2>
+        <p class="product-launch-subheading">
+          Connecting brands with people through immersive and live
+          experiences.
+        </p>
+
+        <p class="product-launch-desc">
+          We bring your brand to life through immersive experiences that
+          engage all senses. Our experiential marketing strategies focus
+          on creating deep emotional connections between your brand and
+          your customers. By combining creative storytelling with
+          interactive installations, we ensure your message isn't just
+          seen—it's lived and remembered.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="product-launch-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="product-launch-row reveal">
+      <div class="product-launch-image">
+        <img
+          src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Pop-up Events"
+        />
+      </div>
+
+      <div class="product-launch-content">
+        <div class="product-launch-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+
+        <h2 class="product-launch-heading">Pop-up Events</h2>
+        <p class="product-launch-subheading">
+          Exclusive, temporary spaces designed to generate instant brand
+          awareness.
+        </p>
+
+        <p class="product-launch-desc">
+          Pop-up events are the perfect way to create urgency and
+          exclusivity around your brand. We design and execute
+          high-traffic, temporary installations that capture public
+          attention and drive immediate engagement. Whether it’s a
+          boutique retail space or a themed brand hub, we manage the
+          logistics and design to maximize your reach.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="product-launch-btn">Learn More →</a>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container max-width">
+    <h2 class="reveal">Launch with Impact</h2>
+    <p class="reveal">
+      Turn your idea into a market-defining moment with creativity and
+      flawless execution
+    </p>
+
+    <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+      Start Planning Now
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

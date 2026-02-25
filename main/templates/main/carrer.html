@@ -1,0 +1,299 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/careers/carousel01.jpeg' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.careers-section {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.career-container {
+  margin: 5rem auto;
+  padding: 0 20px;
+}
+
+.career-title {
+  font-size: 3.4rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.career-title:hover {
+  color: rebeccapurple;
+}
+
+.career-job-card {
+  background-color: rgb(255, 244, 231);
+  border-radius: 1.6rem;
+  padding: 2.8rem 3.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  transition: all 0.3s ease;
+}
+
+.career-job-card:hover {
+  box-shadow: 5px 12px 30px rgba(0, 0, 5, 0.1);
+}
+
+.career-job-card-info {
+  line-height: 3rem;
+}
+
+.career-job-card-info h3 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.career-job-card-info .time-place {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 0.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+
+.career-job-card-info .time-place:hover {
+  color: rgb(159, 119, 16);
+}
+
+.career-job-card-info .exp {
+  font-size: 1.4rem;
+  font-weight: 200;
+  color: #999999;
+}
+
+.career-job-apply-btn {
+  position: relative;
+  bottom: 3rem;
+  background: rgb(106, 49, 158);
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 99.9rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #eeeeee;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.career-job-apply-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsiveness */
+@media (max-width: 1386px) {
+  html {
+    font-size: 60%;
+  }
+  .career-container {
+    margin: 5rem auto;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 55%;
+  }
+  .max-width {
+    margin: 5rem auto;
+    max-width: 100rem;
+  }
+}
+
+@media (max-width: 1140px) {
+  html {
+    font-size: 50%;
+  }
+  .max-width {
+    max-width: 90rem;
+  }
+  .services-card {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 860px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+@media (max-width: 769px) {
+  .max-width {
+    max-width: 70rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .max-width {
+    max-width: 50rem;
+  }
+  .career-title {
+    text-align: center;
+  }
+  .career-job-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+    margin-bottom: 2.4rem;
+  }
+  .career-job-card-info {
+    text-align: center;
+  }
+  .career-job-apply-btn {
+    align-self: center;
+    position: relative;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 580px) {
+  .max-width {
+    max-width: 60rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 40%;
+  }
+  .max-width {
+    max-width: 50rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .max-width {
+    max-width: 45rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Be Part of Our Journey</h1>
+        <p class="hero-heading-secondary">
+          Crafting Exceptional Experiences Together
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="careers-section">
+  <div class="career-wrapper max-width">
+    <div class="career-container container-max-width">
+
+
+      <h2 class="career-title reveal">Current Openings</h2>
+
+      {% for job in jobs %}
+      <div class="career-job-card reveal">
+        <div class="career-job-card-info">
+          <h3>{{ job.title }}</h3>
+          <p class="time-place">{{ job.time_place }}</p>
+          <p class="exp">{{ job.experience }}</p>
+        </div>
+        <button class="career-job-apply-btn">Apply</button>
+      </div>
+      {% empty %}
+      <p>No current openings. Check back soon!</p>
+      {% endfor %}
+
+      
+      <div class="career-job-card reveal">
+        <div class="career-job-card-info">
+          <h3>Senior Event Manager</h3>
+          <p class="time-place">Full-time • New York</p>
+          <p class="exp">5+ years experience</p>
+        </div>
+        <button class="career-job-apply-btn">Apply</button>
+      </div>
+      
+      <div class="career-job-card reveal">
+        <div class="career-job-card-info">
+          <h3>Creative Designer</h3>
+          <p class="time-place">Full-time • Remote</p>
+          <p class="exp">3+ years experience</p>
+        </div>
+        <button class="career-job-apply-btn">Apply</button>
+      </div>
+      
+      <div class="career-job-card reveal">
+        <div class="career-job-card-info">
+          <h3>Marketing Coordinator</h3>
+          <p class="time-place">Part-time • Los Angeles</p>
+          <p class="exp">2+ years experience</p>
+        </div>
+        <button class="career-job-apply-btn">Apply</button>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+{% endblock %}

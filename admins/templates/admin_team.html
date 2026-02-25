@@ -1,0 +1,154 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+
+<style>
+.section-title {
+    text-align: center;
+    margin: 30px 0 20px;
+}
+
+.team-form {
+    width: 500px;
+    margin: auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.team-form input,
+.team-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.submit-btn {
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #333;
+}
+
+.team-list {
+    width: 85%;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.team-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.team-item img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.team-actions a {
+    margin: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+</style>
+
+<h2 class="section-title">
+{% if edit_mode %} Edit Team Member {% else %} Add Team Member {% endif %}
+</h2>
+
+<form method="POST" enctype="multipart/form-data" class="team-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Name</label>
+        {{ form.name }}
+    </div>
+
+    <div class="form-group">
+        <label>Role</label>
+        {{ form.role }}
+    </div>
+
+    <div class="form-group">
+        <label>Image</label>
+        {{ form.image }}
+    </div>
+
+    <div class="form-group">
+        <label>LinkedIn URL</label>
+        {{ form.linkedin_url }}
+    </div>
+
+    <div class="form-group">
+        <label>Active</label>
+        {{ form.is_active }}
+    </div>
+
+    <button type="submit" class="submit-btn">
+        {% if edit_mode %} Update {% else %} Add {% endif %}
+    </button>
+</form>
+
+<hr>
+
+<h2 class="section-title">Team Members</h2>
+
+<div class="team-list">
+{% for member in members %}
+    <div class="team-item">
+        <img src="{{ member.image.url }}">
+        <h3>{{ member.name }}</h3>
+        <p>{{ member.role }}</p>
+
+        <div class="team-actions">
+            <a href="{% url 'edit_team' member.pk %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete_team' member.pk %}" class="delete-btn"
+               onclick="return confirm('Delete this member?')">
+               Delete
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,333 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/card/card3.png' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.social-section {
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.social-row.reverse {
+  direction: rtl;
+}
+
+.social-row.reverse > * {
+  direction: ltr;
+}
+
+.social-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.social-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-image img:hover {
+  transform: scale(1.1);
+}
+
+.social-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.social-content .social-heading {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-content .social-heading:hover {
+  color: rgb(77, 18, 133);
+}
+
+.social-content .social-subheading {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-content .social-subheading:hover {
+  color: rgb(199, 148, 19);
+}
+
+.social-desc {
+  font-size: 1.6rem;
+  margin-bottom: 2.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555555;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-desc:hover {
+  color: #333333;
+}
+
+.social-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.social-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.social-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.social-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.social-icon i {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.social-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .social-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .social-row.reverse {
+    direction: ltr;
+  }
+
+  .social-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .social-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .social-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Social Events</h1>
+        <p class="hero-heading-secondary">
+          Moments. Memories. Celebrations.
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="social-section">
+  <div class="social-container max-width">
+    
+    <div class="social-row reveal reverse">
+      <div class="social-image">
+        <img
+          src="https://www.activeedufun.com/media/lkzpaubd/birthday-hazzel-free_690_460.jpg"
+          alt="Birthday Event"
+        />
+      </div>
+
+      <div class="social-content">
+        <div class="social-icon">
+          <i class="fa-solid fa-cake-candles"></i>
+        </div>
+
+        <h2 class="social-heading">Milestone Birthdays</h2>
+        <p class="social-subheading">
+          From first steps to golden years, we make every birthday a
+          masterpiece of joy.
+        </p>
+
+        <p class="social-desc">
+          A birthday is more than just a date; it’s a celebration of
+          life’s journey. Whether it is a whimsical 1st birthday or a
+          grand 50th jubilee, we bring creativity to every detail. From
+          vibrant balloon installations and custom-themed cakes to
+          interactive entertainment, we ensure the guest of honor feels
+          truly special. Let us handle the coordination so you can focus
+          on making wishes and making memories.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="social-btn">Explore Themes →</a>
+      </div>
+    </div>
+
+    <div class="social-row reveal">
+      <div class="social-image">
+        <img
+          src="https://i-media.vyaparify.com/vcards/blogs/79380/pexels-paola-vasquez-3593434.jpg"
+          alt="Anniversary Celebration"
+        />
+      </div>
+
+      <div class="social-content">
+        <div class="social-icon">
+          <i class="fa-solid fa-baby-carriage"></i>
+        </div>
+
+        <h2 class="social-heading">Baby shower</h2>
+        <p class="social-subheading">
+          Honoring traditions and blessings for the mother-to-be and the
+          little soul.
+        </p>
+
+        <p class="social-desc">
+          Baby Shower is a beautiful ceremony filled with ancient rituals
+          and cultural heritage. We create a serene atmosphere with
+          traditional marigold decor, authentic music, and sacred
+          arrangements. From the arrival of elders for blessings to the
+          classic sweets and cultural festivities, we ensure every ritual
+          is performed with grace to honor this beautiful transition into
+          motherhood.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="social-btn">Plan Your Milestone →</a>
+      </div>
+    </div>
+
+    <div class="social-row reveal reverse">
+      <div class="social-image">
+        <img
+          src="https://popmenucloud.com/cdn-cgi/image/width%3D1200%2Cheight%3D1200%2Cfit%3Dscale-down%2Cformat%3Dauto%2Cquality%3D60/blkiutdq/5c25b249-7916-4c86-b4f5-a85a8bb23610.jpg"
+          alt="Private Party"
+        />
+      </div>
+
+      <div class="social-content">
+        <div class="social-icon">
+          <i class="fa-solid fa-champagne-glasses"></i>
+        </div>
+
+        <h2 class="social-heading">Private Soirées</h2>
+        <p class="social-subheading">
+          Exclusive gatherings and luxury parties designed for your inner
+          circle.
+        </p>
+
+        <p class="social-desc">
+          From sophisticated cocktail parties and housewarmings to festive
+          holiday gatherings, our private event services are tailored to
+          your unique lifestyle. We manage everything from luxury catering
+          and mixology to immersive lighting and sound. Our goal is to
+          transform your vision into a seamless, high-end experience that
+          leaves your guests talking long after the final toast.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="social-btn">Start Hosting →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container max-width">
+    <h2 class="reveal">Cheers to your Special Moments</h2>
+    <p class="reveal">
+      Let us craft celebrations that resonate with your heart and soul
+    </p>
+
+    <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+      Start Planning Now
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

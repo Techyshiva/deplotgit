@@ -1,0 +1,476 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+  .slides {
+  height: 100vh;
+}
+
+.slide {
+  position: relative;
+  inset: 0;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  color: white;
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+  height: 100%;
+}
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+  url("{% static 'images/material/plan-events/carosel/carosel1.png' %}") center/cover no-repeat;
+}
+.slide a {
+  display: none;
+}
+
+.booking-form-section {
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+  position: relative;
+}
+
+.booking-form-container {
+  margin-top: 10rem;
+  padding: 5rem 5rem;
+  background-color: rgb(255, 243, 236);
+  transition: all 0.3s ease-in-out;
+}
+
+.booking-form-max-width {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.booking-form-1 {
+  margin-bottom: 4rem;
+}
+.booking-form-2 {
+  margin-bottom: 0rem;
+  padding-top: 4rem;
+  border-top: 0.1px solid rgba(70, 18, 118, 0.241);
+}
+.form-heading {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.form-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 4rem;
+  row-gap: 1rem;
+}
+.form-group {
+  margin-bottom: 0rem;
+}
+
+.form-group label {
+  margin-right: 100%;
+  text-wrap: nowrap;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.form-group label ion-icon {
+  position: relative;
+  top: 0.3rem;
+}
+
+.form-input {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.2rem;
+  padding-left: 1rem;
+  font-size: 1.4rem;
+  color: #333333;
+  background-color: rgb(255, 242, 233);
+  border: 0.2px solid rgba(70, 18, 118, 0.241);
+  border-radius: 0.5rem;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #7b2cbf;
+  background-color: rgb(255, 242, 233);
+  box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
+}
+.event-type-span {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.user-number-span {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.user-add-info-span {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+/* submit btn */
+.submit-btn-box {
+  grid-column: 1 / -1;
+}
+.submit-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 1.6rem;
+  background-color: #9d00ff; /* Bright purple from reference */
+  color: #fff;
+  border: none;
+  border-radius: 5rem; /* Pill shape like reference */
+  font-size: 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #7b2cbf; /* Darker purple on hover */
+}
+/* submit message */
+/* =========================================================
+   SUCCESS MESSAGE STYLES – FINAL FIXED
+   ========================================================= */
+
+.booking-form-section {
+  position: relative;
+}
+
+/* Base containers */
+#form {
+  width: 100%;
+}
+
+#successMessage {
+  width: 80%;
+
+  min-height: 100rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* START HIDDEN */
+  opacity: 0;
+  visibility: hidden;
+
+  /* POSITION OVER FORM */
+  position: absolute;
+  top: 0%;
+
+  background-color: rgb(255, 243, 236);
+  padding: 5rem;
+
+  transition: all 0.6s ease;
+}
+
+/* Form animation */
+#form {
+  transition: all 0.6s ease;
+}
+
+/* ACTIVE STATE */
+.show-success #form {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-20px);
+}
+
+.show-success #successMessage {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Icon & text */
+.success-icon ion-icon {
+  font-size: 12rem;
+  color: #2ecc71;
+  margin-bottom: 2rem;
+}
+
+.success-message h3 {
+  font-size: 4.4rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  font-size: 1.6rem;
+  color: #999999;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1140px) {
+  .booking-form-max-width {
+    max-width: 90%;
+  }
+  #successMessage {
+    width: 90%;
+  }
+}
+@media (max-width: 769px) {
+  .booking-form-max-width {
+    max-width: 100%;
+  }
+  #successMessage {
+    width: 100%;
+  }
+  .form-content {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 769px) {
+  #successMessage {
+    min-height: 130rem;
+  }
+  .success-icon ion-icon {
+    font-size: 10rem;
+    margin-top: 14rem;
+  }
+  .success-message h3 {
+    font-size: 3.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+}
+
+</style>
+
+    
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div class="slides">
+          <!-- slide 1 -->
+          <div class="slide active">
+            <div class="hero-heading">
+              <h1 class="hero-heading-primary">Plan Your Dream Event</h1>
+              <p class="hero-heading-secondary">
+                Tell us about your vision, and we'll make it a reality
+              </p>
+              <a href="plan-event.html" class="hero-btn">Plan Your Event</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 
+      .
+      .
+      START TO WRITE YOUR CODE AFTER THIS
+       .
+       .
+       .
+       .
+        -->
+      <section class="booking-form-section max-width">
+        
+        {% if messages %}
+            <div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; border: 1px solid #c3e6cb;">
+                {% for message in messages %}
+                    <strong>{{ message }}</strong>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form id="form" method="POST" action="{% url 'plan_event' %}" class="booking-form-container booking-form-max-width">
+            {% csrf_token %}
+            <div class="booking-form booking-form-1">
+                <div class="form-heading">Event Details</div>
+                <div class="form-content">
+                    <div class="form-group">
+                        <label><ion-icon name="earth-outline"></ion-icon> Event Type</label>
+                        <select
+                          name="event_type"
+                          class="form-input event-type"
+                          required
+                        >
+                            <option value="">Select Event Type</option>
+                            <option>Wedding</option>
+                            <option>Corporate Event</option>
+                            <option>Birthday Party</option>
+                            <option>Anniversary</option>
+                            <option>Product Launch</option>
+                            <option>Conference</option>
+                            <option>Exhibition</option>
+                            <option>Concert</option>
+                            <option>Fashion Show</option>
+                            <option>College Fest</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><ion-icon name="calendar-outline"></ion-icon> Event Date</label>
+                        <input
+                          name="event_date"
+                          class="form-input event-date"
+                          type="date"
+                          placeholder="Event Date"
+                          required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label><ion-icon name="location-outline"></ion-icon> Location/City</label>
+                        <input
+                          name="event_city"
+                          class="form-input event-city"
+                          type="text"
+                          placeholder="Event Location"
+                          required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label><ion-icon name="people-outline"></ion-icon> Expected Guests</label>
+                        <input
+                          name="expected_guests"
+                          class="form-input expexted-guests"
+                          type="number"
+                          placeholder="Expected Guests"
+                          required
+                        />
+                    </div>
+                    <div class="form-group event-type-span">
+                        <label><ion-icon name="card-outline"></ion-icon> Event Budget</label>
+                        <select
+                          name="event_budget"
+                          class="form-input event-budget"
+                          required
+                        >
+                            <option value="">Set Budget Range</option>
+                            <option>Under 50000 &#8377;</option>
+                            <option>50000 &#8377; - 100000 &#8377;</option>
+                            <option>100000 &#8377; - 150000 &#8377;</option>
+                            <option>150000 &#8377; - 300000 &#8377;</option>
+                            <option>300000 &#8377; - 500000 &#8377;</option>
+                            <option>500000 &#8377; - 1000000 &#8377;</option>
+                            <option>+1000000 &#8377;</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form booking-form-2">
+                <div class="form-heading">Your Information</div>
+                <div class="form-content">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input
+                          name="full_name"
+                          class="form-input user-name"
+                          type="text"
+                          placeholder="John Smith"
+                          required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input
+                          name="email"
+                          class="form-input user-mail"
+                          type="email"
+                          placeholder="smithjohnson@corporate.com"
+                          required
+                        />
+                    </div>
+                    <div class="form-group user-number-span">
+                        <label>Mobile Number</label>
+                        <input
+                          name="mobile_number"
+                          class="form-input user-number"
+                          type="number"
+                          placeholder="Enter Mobile Number"
+                          required
+                        />
+                    </div>
+                    <div class="form-group user-add-info-span">
+                        <label>Additional Information</label>
+                        <textarea
+                          id="message"
+                          name="additional_info"
+                          class="form-input user-add-info"
+                          rows="5"
+                          placeholder="Tell us more about your vision..."
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Send Message <ion-icon name="paper-plane-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="booking-form-max-width">
+<div class="success-message " id="successMessage">
+    <div class="success-icon">
+      <ion-icon name="paper-plane-outline"></ion-icon>
+    </div>
+    <h3>Message Sent!</h3>
+    <p>We'll get back to you soon.</p>
+  </div>
+</div>
+
+
+</section>
+<!-- 
+  
+-->
+<script>
+const contactForm = document.getElementById("form");
+const section = document.querySelector(".booking-form-section");
+
+contactForm.addEventListener("submit", function (e) {
+  // 1. Prevent the default page reload
+  e.preventDefault();
+
+  // 2. Package up all the user's data from the form
+  const formData = new FormData(contactForm);
+
+  // 3. Send it to your Django view securely in the background
+  fetch(contactForm.action, { // Make sure your HTML form has action="{% url 'plan_event' %}"
+      method: 'POST',
+      body: formData,
+      headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+      }
+  })
+  .then(response => {
+      // 4. If Django successfully saved it to the database...
+      if (response.ok) {
+          // Play your success animation!
+          section.classList.add("show-success");
+
+          setTimeout(() => {
+            section.classList.remove("show-success");
+            contactForm.reset();
+          }, 3000);
+      } else {
+          alert("Something went wrong on the server.");
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert("Network error occurred.");
+  });
+});
+
+</script>
+<script src="{% static 'js/plan_form.js' %}"></script>
+{% endblock %}
+   

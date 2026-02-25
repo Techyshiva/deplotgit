@@ -1,0 +1,366 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/contact/carosel01.jpg' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.contact-section {
+  padding: 8rem 10% 10rem 10%;
+  margin-top: -3rem; /* Pull up to cover Hero margin */
+}
+
+.contact-box {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Right side slightly wider for the form */
+  gap: 6rem; /* Big gap between info and form */
+  background-color: rgb(255, 243, 236);
+  padding: 5rem;
+  border-radius: 2rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.05);
+}
+
+/* --- LEFT SIDE: GET IN TOUCH --- */
+
+.contact-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 4rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start; /* Aligns icon with the top line of text */
+  gap: 2rem;
+}
+
+.icon-box ion-icon {
+  font-size: 2.8rem;
+  color: #7b2cbf; /* Purple Icon */
+}
+
+.item-text h3 {
+  font-size: 1.8rem;
+  color: rgb(70, 18, 118);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.item-text p {
+  font-size: 1.6rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Map Styling */
+.map-container {
+  width: 100%;
+  height: 25rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+/* --- RIGHT SIDE: FORM --- */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.form-group label {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Styling Inputs, Selects, and Textareas identically */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem; /* Rounded corners like reference */
+  font-size: 1.6rem;
+  font-family: inherit;
+  background-color: rgb(255, 242, 233);
+  transition: all 0.3s ease-in-out;
+  color: #444444;
+}
+
+/* Focus State (Purple Border) */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #7b2cbf;
+  background-color: rgb(255, 242, 233);
+  box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
+}
+
+/* The Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1.6rem;
+  background-color: #9d00ff; /* Bright purple from reference */
+  color: #fff;
+  border: none;
+  border-radius: 50px; /* Pill shape like reference */
+  font-size: 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: #7b2cbf; /* Darker purple on hover */
+}
+
+/* =========================================================
+   SUCCESS MESSAGE STYLES
+   ========================================================= */
+
+.form-heading {
+  display: none;
+}
+
+.success-message {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  min-height: 400px; /* Ensures it takes up the same space as the form */
+}
+
+.success-icon ion-icon {
+  font-size: 6rem;
+  color: #2ecc71; /* The Green color from your screenshot */
+  margin-bottom: 2rem;
+}
+
+.success-message h3 {
+  font-size: 2.4rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  font-size: 1.6rem;
+  color: #666;
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* media queries */
+@media (max-width: 780px) {
+  .contact-box {
+    grid-template-columns: 1fr;
+  }
+  .form-heading {
+    display: block;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Contact Us</h1>
+        <p class="hero-heading-secondary">
+          Let's Create Something Amazing Together
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="contact-container reveal max-width">
+    <div class="contact-box container-max-width">
+      
+      <div class="getintouch">
+        <h2 class="contact-heading">Get In Touch</h2>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div class="item-text">
+              <h3>Office Address</h3>
+              <p>
+                Near shri Chhatrapati Shivaji Maharaj college of engineering
+              </p>
+              <p>Nagar 414-005, Maharastra</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="call-outline"></ion-icon>
+            </div>
+            <div class="item-text">
+              <h3>Phone</h3>
+              <p>+91 9511735139</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div class="item-text">
+              <h3>Email</h3>
+              <p>smitmarde392@gmail.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1714.1735698358093!2d73.00323342209677!3d19.115107647433213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1770033730284!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <h2 class="contact-heading form-heading">Your Information</h2>
+
+        {% if messages %}
+    <div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+        {% for message in messages %}
+            <strong>{{ message }}</strong>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="POST" action="{% url 'contact' %}" id="contactForm">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Name *</label>
+        <input type="text" name="name" id="name" placeholder="Your Name" class="form-input" required />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" name="email" id="email" placeholder="Your Email" class="form-input" required />
+    </div>
+
+    <div class="form-group">
+        <label for="event-type">Event Type</label>
+        <select name="event_type" id="event-type" class="form-input">
+            <option value="">Select Event Type</option>
+            <option>Wedding</option>
+            <option>Corporate Event</option>
+            <option>Birthday Party</option>
+            <option>Anniversary</option>
+            <option>Product Launch</option>
+            <option>Conference</option>
+            <option>Exhibition</option>
+            <option>Concert</option>
+            <option>Fashion Show</option>
+            <option>College Fest</option>
+            <option>Other</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea name="message" id="message" rows="5" placeholder="Tell us about your event..." class="form-input" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">
+        Send Message <ion-icon name="paper-plane-outline"></ion-icon>
+    </button>
+</form>
+
+        <div
+          class="success-message"
+          id="successMessage"
+          style="display: none"
+        >
+          <div class="success-icon">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+          </div>
+          <h3>Message Sent!</h3>
+          <p>We'll get back to you soon.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/form.js' %}"></script>
+
+{% endblock %}

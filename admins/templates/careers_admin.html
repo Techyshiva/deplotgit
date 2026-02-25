@@ -1,0 +1,177 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+
+<style>
+.section-title {
+    text-align: center;
+    margin: 30px 0 20px;
+    font-family: Arial, sans-serif;
+}
+
+.job-form {
+    width: 500px;
+    margin: auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Matches your .team-form input style */
+.job-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+}
+
+.submit-btn {
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #333;
+}
+
+.job-list {
+    width: 85%;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.job-item {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.job-item h3 {
+    margin: 0 0 10px 0;
+    color: #461276; /* Your theme purple */
+}
+
+.job-item p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.job-item .job-exp {
+    font-weight: bold;
+    color: #999;
+}
+
+.job-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.job-actions a {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 40px 0;
+}
+</style>
+
+<h2 class="section-title">
+    {% if edit_mode %} Edit Job Opening {% else %} Add New Job Opening {% endif %}
+</h2>
+
+<form method="POST" class="job-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Job Title</label>
+        {{ form.title }}
+    </div>
+
+    <div class="form-group">
+        <label>Time & Place</label>
+        {{ form.time_place }}
+    </div>
+
+    <div class="form-group">
+        <label>Experience Required</label>
+        {{ form.experience }}
+    </div>
+
+    <button type="submit" class="submit-btn">
+        {% if edit_mode %} Update Job {% else %} Post Job {% endif %}
+    </button>
+</form>
+
+<hr>
+
+<h2 class="section-title">Current Openings</h2>
+
+<div class="job-list">
+    {% for job in jobs %}
+    <div class="job-item">
+        <div>
+            <h3>{{ job.title }}</h3>
+            <p><strong>📍 {{ job.time_place }}</strong></p>
+            <p class="job-exp">💼 {{ job.experience }}</p>
+        </div>
+
+        <div class="job-actions">
+            <a href="{% url 'edit_job' job.pk %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete_job' job.pk %}" class="delete-btn"
+               onclick="return confirm('Are you sure you want to delete this job opening?')">
+                Delete
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <p style="grid-column: 1/-1; text-align: center; color: #999;">No jobs posted yet.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

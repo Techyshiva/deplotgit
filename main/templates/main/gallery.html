@@ -1,0 +1,307 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/gallery/carousel01.webp' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.gallery {
+  width: 100%;
+  padding: 8rem 10%;
+  margin-top: -5rem; /* Adjusted based on your CSS */
+}
+
+/* The Grid Layout */
+.gridbox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* FORCE exactly 3 columns */
+  gap: 3rem;
+  width: 100%;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+/* Individual Card Container */
+.gallery-card {
+  position: relative;
+  height: 30rem;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 1rem 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effect: Slight lift */
+.gallery-card:hover {
+  transform: translateY(-0.5rem);
+}
+
+/* The Image */
+.gallery-card .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Zoom image slightly on hover */
+.gallery-card:hover .card-img {
+  transform: scale(1.05);
+}
+
+/* ===== LIGHTBOX SLIDER ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-img {
+  max-width: 85%;
+  max-height: 85vh;
+  border-radius: 1rem;
+}
+
+/* CLOSE BUTTON */
+.lightbox .close {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  color: white;
+  font-size: 4rem;
+  padding: 0 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.lightbox .close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* NAV BUTTONS */
+.lightbox .prev,
+.lightbox .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 1.2rem 1.6rem;
+  font-size: 2.4rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+
+.lightbox .prev {
+  left: 3rem;
+}
+
+.lightbox .next {
+  right: 3rem;
+}
+
+.lightbox .prev:hover,
+.lightbox .next:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgb(159, 119, 16);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1280px) {
+  .gallery {
+    padding: 8rem 5%; 
+  }
+}
+
+@media (max-width: 1140px) {
+  .gridbox {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 4rem; 
+  }
+}
+
+@media (max-width: 769px) {
+  .gallery {
+    padding: 6rem 5%; 
+  }
+
+  .gridbox {
+    grid-template-columns: 1fr; 
+    gap: 3rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+
+  .gallery-card {
+    height: 35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    padding: 4rem 2rem; 
+  }
+
+  .gallery-card {
+    height: 32rem; 
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Gallery</h1>
+        <p class="hero-heading-secondary">
+          Capturing Moments That Matter Forever
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+
+  <div class="gridbox reveal max-width">
+    {% for img in images %}
+    <div class="gallery-card">
+      <img
+        src="{{ img.image.url }}"
+        alt="{{ img.alt_text }}"
+        class="card-img"
+      />
+    </div>
+    {% endfor %}
+
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery01.jpg' %}"
+        alt="Royal Wedding"
+        class="card-img"
+      />
+    </div>
+
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery02.jpg' %}"
+        alt="Tech Summit"
+        class="card-img"
+      />
+    </div>
+
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery03.webp' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+    </div>
+    
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery04.jpg' %}"
+        alt="Royal Wedding"
+        class="card-img"
+      />
+    </div>
+
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery05.webp' %}"
+        alt="Tech Summit"
+        class="card-img"
+      />
+    </div>
+
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery06.jpg' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+    </div>
+    
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery07.webp' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+    </div>
+    
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery08.jpg' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+    </div>
+    
+    <div class="gallery-card">
+      <img
+        src="{% static 'images/material/gallery/gallery09.webp' %}"
+        alt="Birthday Gala"
+        class="card-img"
+      />
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-img" id="lightboxImg" alt="Gallery Image Zoomed"/>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+</div>
+
+{% endblock %}

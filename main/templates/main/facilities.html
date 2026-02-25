@@ -1,0 +1,365 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/facilities/carosel/carosel.jpg' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.facilities-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  margin: 0 auto;
+  padding-bottom: 8rem;
+  padding-top: 8rem;
+}
+
+.facilities-card {
+  position: relative;
+  height: 23rem;
+  width: 38rem;
+  padding-top: 1rem;
+  padding-bottom: 0rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: rgb(255, 243, 236);
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.facilities-card:hover {
+  box-shadow: 2px 5px 10px rgba(22, 4, 56, 0.2);
+  transform: scale(1.05);
+}
+
+.facilities-card-icon {
+  position: relative;
+  top: 2rem;
+  left: 1rem;
+  height: 7rem;
+  width: 7rem;
+  color: #dcb66a;
+  background-color: rgba(105, 30, 175, 0.04);
+  border-radius: 5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card-icon:hover {
+  background-color: rgba(105, 30, 175, 0.12);
+}
+
+.facilities-card-icon i {
+  position: relative;
+  top: 2rem;
+  left: 1rem;
+  color: rgb(105, 30, 175);
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card-icon ion-icon {
+  font-size: 3.2rem;
+  padding: 2rem;
+  color: rgb(105, 30, 175);
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card-icon,
+.facilities-card-name {
+  position: relative;
+  z-index: 2;
+}
+
+.facilities-card-name {
+  position: relative;
+  top: 2rem;
+  padding: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 0;
+  line-height: 3rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card-name h1 {
+  color: rgb(70, 18, 118);
+  font-size: 2.2rem;
+  font-weight: 600;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card:hover .facilities-card-name h1 {
+  color: rgb(92, 26, 154);
+}
+
+.facilities-card-name span {
+  color: rgb(159, 119, 16);
+  font-size: 1.2rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.facilities-card:hover .facilities-card-name span {
+  color: rgb(187, 144, 35);
+}
+
+/* responsive */
+
+@media (max-width: 1386px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 55%;
+  }
+  .max-width {
+    margin: 0 auto;
+    max-width: 100rem;
+  }
+  .facilities-cards {
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 1140px) {
+  html {
+    font-size: 50%;
+  }
+  .max-width {
+    max-width: 90rem;
+  }
+  .facilities-cards {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-evenly;
+    align-items: center;
+    column-gap: 10rem;
+    row-gap: 10rem;
+  }
+  .facilities-card {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 860px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+@media (max-width: 769px) {
+  html {
+    font-size: 45%;
+  }
+  .max-width {
+    max-width: 70rem;
+  }
+  .facilities-cards {
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: space-between;
+    row-gap: 3rem;
+  }
+  .facilities-card {
+    height: 30rem;
+    width: auto;
+    background-color: rgb(251, 242, 221);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .facilities-card-icon {
+    top: 5rem;
+    left: 5rem;
+  }
+  .facilities-card-name {
+    padding: 5rem;
+    line-height: 3rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .max-width {
+    max-width: 60rem;
+  }
+  .facilities-card {
+    height: 30rem;
+    width: auto;
+  }
+  .facilities-card-icon {
+    position: relative;
+    top: 6rem;
+    left: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 40%;
+  }
+  .max-width {
+    max-width: 50rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .max-width {
+    max-width: 45rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Services & Facilities</h1>
+        <p class="hero-heading-secondary">
+          Where refined service meets exceptional execution.
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="facilities">
+  <div class="facilities-container max-width">
+    <div class="facilities-cards">
+
+      {% for f in facilities %}
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="{{ f.icon_name }}"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>{{ f.title }}</h1>
+          <span>{{ f.description }}</span>
+        </div>
+      </div>
+      {% endfor %}
+
+      
+      
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="bulb-outline"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>Stage & Lighting</h1>
+          <span>Professional stage design and lighting solutions</span>
+        </div>
+      </div>
+      
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="volume-high-outline"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>Sound & AV</h1>
+          <span>Crystal clear audio and visual systems</span>
+        </div>
+      </div>
+      
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="restaurant-outline"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>Catering Management</h1>
+          <span>World-class culinary experiences</span>
+        </div>
+      </div>
+      
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="musical-notes-outline"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>Entertainment</h1>
+          <span>Live music, DJs, and performances</span>
+        </div>
+      </div>
+      
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="airplane-outline"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>Logistics</h1>
+          <span>Seamless event transportation and setup</span>
+        </div>
+      </div>
+      
+      <div class="facilities-card reveal">
+        <div class="facilities-card-icon">
+          <ion-icon name="shield-half-outline"></ion-icon>
+        </div>
+        <div class="facilities-card-name">
+          <h1>Security</h1>
+          <span>Professional security and crowd management</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+{% endblock %}

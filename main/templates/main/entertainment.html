@@ -1,0 +1,366 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/card/card6.png' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.hero-heading-primary {
+  font-size: 5.2rem;
+}
+
+.wedding-section {
+  height: auto;
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.wedding-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.wedding-row.reverse {
+  direction: rtl;
+}
+
+.wedding-row.reverse > * {
+  direction: ltr;
+}
+
+.wedding-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-image img:hover {
+  transform: scale(1.1);
+}
+
+.wedding-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.wedding-content .wedding-heading {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-content .wedding-heading:hover {
+  color: rgb(77, 18, 133);
+}
+
+.wedding-content .wedding-subheading {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-content .wedding-subheading:hover {
+  color: rgb(199, 148, 19);
+}
+
+.wedding-desc {
+  font-size: 1.6rem;
+  margin-bottom: 2.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555555;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-desc:hover {
+  color: #333333;
+}
+
+.wedding-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.wedding-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.wedding-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.wedding-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.wedding-icon i {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.wedding-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .wedding-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .wedding-row.reverse {
+    direction: ltr;
+  }
+
+  .wedding-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .wedding-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wedding-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Entertainment & Concerts</h1>
+        <p class="hero-heading-secondary">
+          Live entertainment events that leave lasting impressions
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wedding-section">
+  <div class="wedding-container max-width">
+    <div class="wedding-row reveal">
+      <div class="wedding-image">
+        <img
+          src="{% static 'images/material/entertainment/card1.png' %}"
+          alt="Stage Design Service"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon">
+          <i class="fa-solid fa-masks-theater"></i>
+        </div>
+
+        <h2 class="wedding-heading">Stage Design</h2>
+        <p class="wedding-subheading">
+          Creating breathtaking visual centerpieces that define your
+          event's identity.
+        </p>
+
+        <p class="wedding-desc">
+          A great event starts with a stunning stage. We specialize in
+          custom set designs that combine architectural innovation with
+          artistic storytelling. From grand 3D backdrops and LED wall
+          integration to elegant traditional setups, our designs are
+          crafted to provide the perfect focal point. We ensure every
+          angle is camera-ready and reflects the true essence of your
+          brand or celebration.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="wedding-row reveal reverse">
+      <div class="wedding-image">
+        <img
+          src="{% static 'images/material/entertainment/card2.png' %}"
+          alt="Sound and Lighting Service"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+
+        <h2 class="wedding-heading">Sound & Lighting</h2>
+        <p class="wedding-subheading">
+          Immersive audio-visual experiences that set the perfect mood and
+          tone.
+        </p>
+
+        <p class="wedding-desc">
+          Sound and light are the heartbeat of any celebration. We provide
+          professional-grade audio systems and intelligent lighting
+          solutions tailored to your venue’s acoustics. Whether it's
+          high-energy concert lighting, subtle ambient glow, or
+          crystal-clear audio for speakers, our technical experts ensure
+          every beat is heard and every moment is perfectly illuminated to
+          captivate your audience.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="wedding-row reveal">
+      <div class="wedding-image">
+        <img
+          src="{% static 'images/material/entertainment/card3.png' %}"
+          alt="Artist Management Service"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon">
+          <i class="fa-solid fa-music"></i>
+        </div>
+
+        <h2 class="wedding-heading">Artist Management</h2>
+        <p class="wedding-subheading">
+          Connecting your event with the right performers and talent
+        </p>
+
+        <p class="wedding-desc">
+          From celebrity performers and live bands to DJs, anchors, and
+          cultural artists, we handle complete artist coordination.
+          Contracting, travel, hospitality, rehearsals, and show flow are
+          managed seamlessly so that the performance unfolds flawlessly
+          and your audience enjoys a world-class entertainment experience.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="wedding-row reveal reverse">
+      <div class="wedding-image">
+        <img
+          src="{% static 'images/material/entertainment/card4.png' %}"
+          alt="Concert Production Service"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon">
+          <i class="fa-solid fa-microphone-lines"></i>
+        </div>
+
+        <h2 class="wedding-heading">Concert Production</h2>
+        <p class="wedding-subheading">
+          End-to-end execution for powerful live shows
+        </p>
+
+        <p class="wedding-desc">
+          We manage full concert production including crowd planning,
+          backstage operations, technical riders, safety compliance, and
+          on-ground coordination. Our team ensures smooth transitions,
+          high production quality, and energetic show experiences that
+          keep audiences engaged from the first note to the final encore.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container max-width">
+    <h2 class="reveal">Ready to Bring the Energy?</h2>
+    <p class="reveal">
+      Make your events alive with powerful performances and flawless
+      production
+    </p>
+
+    <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+      Start Planning Now
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

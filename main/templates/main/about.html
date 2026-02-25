@@ -1,0 +1,513 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/about/carosel/carosel.avif' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.hero {
+  margin-bottom: 0;
+}
+
+.our-story {
+  padding: 0;
+}
+
+.story-container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.story-content {
+  flex: 1;
+}
+
+.story-content h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.story-content p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: #666666;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.story-content p:hover {
+  color: #333333;
+}
+
+.story-image {
+  flex: 1;
+}
+
+.story-image img {
+  width: 100%;
+  border-radius: 18px;
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.story-image img:hover {
+  transform: scale(1.03);
+  box-shadow: 5px 5px 15px rgba(143, 141, 146, 0.7);
+}
+
+/* VISION & MISSION CARDS */
+.vision-mission {
+  padding: 8% 0;
+}
+
+.vm-container {
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.vm-card {
+  position: relative;
+  flex: 1;
+  background-color: rgb(255, 243, 236);
+  padding: 4rem 3.5rem;
+  border-radius: 2rem;
+  transition: box-shadow 0.1s ease-in-out;
+  background-size: 100% 100%;
+}
+
+.vm-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 2rem;
+}
+
+.vm-card:hover {
+  box-shadow: 2px 5px 10px rgba(22, 4, 56, 0.2);
+  transform: scale(1.05);
+}
+
+.vm-card-icon {
+  padding: 3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(105, 30, 175, 0.04);
+  transition: all 0.3s ease-in-out;
+  font-size: 2.8rem;
+}
+
+.vm-card-icon:hover {
+  background-color: rgba(105, 30, 175, 0.12);
+}
+
+.vm-card-icon i {
+  color: rgb(105, 30, 175);
+  transition: all 0.3s ease-in-out;
+}
+
+.vm-card-name {
+  font-size: 1.6rem;
+  line-height: 1.7;
+}
+
+.vm-card-icon,
+.vm-card-name {
+  position: relative;
+  z-index: 2;
+}
+
+.vm-card-title {
+  color: rgb(70, 18, 118);
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.vm-card-title:hover {
+  color: rgb(92, 26, 154);
+}
+
+.vm-card-name p {
+  color: rgb(159, 119, 16);
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.vm-card-name p:hover {
+  color: rgb(187, 144, 35);
+}
+
+/* TEAM SECTION */
+.story-wrapper {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  background-color: rgb(250, 233, 229);
+}
+
+.team-wrapper {
+  background-color: rgb(250, 233, 229);
+}
+
+.team {
+  padding-top: 5%;
+  padding-bottom: 8%;
+}
+
+.team-heading {
+  text-align: center;
+  font-size: 4.2rem;
+  font-weight: 700;
+  margin-bottom: 10rem;
+  color: rgb(82, 22, 138);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.team-heading:hover {
+  color: rgb(92, 18, 161);
+}
+
+.team-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+
+.team-card {
+  width: 20rem;
+  transition: transform 0.5s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.team-card img {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1.8rem;
+  transition: transform 0.3s, border 0.3s;
+}
+
+.team-card:hover img {
+  transform: scale(1.1);
+  border: 3px solid rgb(252, 207, 93);
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+}
+
+.team-card h3 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: rgb(88, 26, 147);
+  margin-bottom: 0.2rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.team-card:hover h3 {
+  color: rgb(105, 30, 175);
+  transition: all 0.3s ease-in-out;
+}
+
+.team-card p {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  font-family: "Playwrite NZ Basic", cursive;
+}
+
+.team-card:hover p {
+  color: rgb(184, 137, 18);
+  transition: all 0.3s ease-in-out;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ICON ANIMATION */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1386px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 55%;
+  }
+  .max-width {
+    max-width: 100rem;
+    margin: auto;
+  }
+  .vm-container {
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1140px) {
+  html {
+    font-size: 50%;
+  }
+  .max-width {
+    max-width: 90rem;
+  }
+  .team-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5rem;
+    row-gap: 6rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .team-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 950px) {
+  .story-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .story-content p {
+    max-width: 100%;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 769px) {
+  .max-width {
+    max-width: 70rem;
+  }
+  html {
+    font-size: 50%;
+  }
+  .vm-container {
+    flex-direction: column;
+  }
+  .team-row {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 3rem;
+    justify-content: center;
+  }
+  .team-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 580px) {
+  .max-width {
+    max-width: 60rem;
+  }
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media (max-width: 370px) {
+  .max-width {
+    max-width: 45rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">About Us</h1>
+        <p class="hero-heading-secondary">
+          Celebrating 16 Years of Crafting Unforgettable Experiences
+        </p>
+        <button class="hero-btn">
+          <a href="{% url 'plan_event' %}">Plan Your Event</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="our-story">
+  <div class="story-wrapper">
+    <div class="story-container max-width">
+      <div class="story-content reveal">
+        <h2>Our Story</h2>
+        <p>
+          Founded in 2010, Imperial Events has evolved from a boutique
+          event planning service into one of the most respected and
+          prestigious names in the event management industry.
+        </p>
+        <p>
+          Driven by a passion for perfection and an unwavering commitment
+          to excellence, we are proud to be the preferred choice for
+          clients who seek truly unforgettable experiences.
+        </p>
+      </div>
+      <div class="story-image reveal">
+        <img src="{% static 'images/material/about/story.jpg' %}" class="img-1" alt="Our Story" />
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper max-width">
+    <div class="vision-mission">
+      <div class="vm-container">
+        <div class="vm-card reveal">
+          <div class="vm-card-icon">
+            <i class="fa-regular fa-eye"></i>
+          </div>
+          <div class="vm-card-name">
+            <h1 class="vm-card-title">Our Vision</h1>
+            <p>
+              To craft exceptional experiences that resonate deeply,
+              inspire globally, and endure beyond the moment.
+            </p>
+          </div>
+        </div>
+
+        <div class="vm-card reveal">
+          <div class="vm-card-icon">
+            <i class="fa-solid fa-bullseye"></i>
+          </div>
+          <div class="vm-card-name">
+            <h1 class="vm-card-title">Our Mission</h1>
+            <p>
+              To deliver impeccably crafted events through inspired
+              creativity, innovative thinking, and an unwavering
+              commitment to excellence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="team-wrapper">
+    <div class="team max-width">
+      <h2 class="team-heading reveal">
+        The Visionaries Behind the Brand
+      </h2>
+
+      <div class="team-row">
+        
+            {% for member in team_members %}
+            {% if member.is_active %}
+            <a href="{{ member.linkedin_url }}" class="team-card reveal" target="_blank">
+                <img src="{{ member.image.url }}" alt="{{ member.name }}" />
+                <h3>{{ member.name }}</h3>
+                <p>{{ member.role }}</p>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+
+        <a href="https://www.linkedin.com/in/mhaskeshivam/" class="team-card reveal" target="_blank">
+          <img src="{% static 'images/material/about/profile/shivam.png' %}" alt="Shivam Mhaske" />
+          <h3>Shivam Mhaske</h3>
+          <p>Founder & Visionary</p>
+        </a>
+
+        <a href="https://www.linkedin.com/in/mhaskeshivam/" class="team-card reveal" target="_blank">
+          <img src="{% static 'images/material/about/profile/prof1.jpg' %}" alt="Snehal Ambade" />
+          <h3>Snehal Ambade</h3>
+          <p>Creative Strategist</p>
+        </a>
+
+        <a href="https://www.linkedin.com/in/smitkumarmarde/" class="team-card reveal" target="_blank">
+          <img src="{% static 'images/material/about/profile/smit.png' %}" alt="Smit Marde" />
+          <h3>Smit Marde</h3>
+          <p>Experience Designer</p>
+        </a>
+
+        <a href="https://www.linkedin.com/in/mhaskeshivam" class="team-card reveal" target="_blank">
+          <img src="{% static 'images/material/about/profile/prof4.jpg' %}" alt="Samrudhhi Joshi" />
+          <h3>Samrudhhi Joshi</h3>
+          <p>Operations Architect</p>
+        </a>
+
+        <a href="https://www.linkedin.com/in/prathamesh-rajale-6860b23a9" class="team-card reveal" target="_blank">
+          <img src="{% static 'images/material/about/profile/prof5.jpg' %}" alt="Prathamesh Rajale" />
+          <h3>Prathamesh Rajale</h3>
+          <p>Technology Lead</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,335 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   PAGE-SPECIFIC CSS ONLY
+   ========================================================= */
+
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("{% static 'images/material/services/card/card1.png' %}") center/cover;
+}
+
+.slide button {
+  display: none;
+}
+
+.wedding-section {
+  height: auto;
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.wedding-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 10rem;
+}
+
+.wedding-row.reverse {
+  direction: rtl;
+}
+
+.wedding-row.reverse > * {
+  direction: ltr;
+}
+
+.wedding-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-image img:hover {
+  transform: scale(1.1);
+}
+
+.wedding-image:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.wedding-content .wedding-heading {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: rgb(70, 18, 118);
+  margin-bottom: 0.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-content .wedding-heading:hover {
+  color: rgb(77, 18, 133);
+}
+
+.wedding-content .wedding-subheading {
+  font-size: 1.4rem;
+  color: rgb(159, 119, 16);
+  margin-bottom: 2.4rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-content .wedding-subheading:hover {
+  color: rgb(199, 148, 19);
+}
+
+.wedding-desc {
+  font-size: 1.6rem;
+  margin-bottom: 2.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555555;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-desc:hover {
+  color: #333333;
+}
+
+.wedding-btn {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border-radius: 999px;
+  background-color: rgb(105, 30, 175);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.wedding-btn:hover {
+  background-color: rgb(70, 18, 118);
+  box-shadow: 0 10px 25px rgba(105, 30, 175, 0.1);
+}
+
+.wedding-icon {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgba(105, 30, 175, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.wedding-icon ion-icon {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.wedding-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.wedding-icon i {
+  font-size: 2.6rem;
+  color: rgb(105, 30, 175);
+}
+
+.wedding-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* MEDIA */
+@media (max-width: 1000px) {
+  .wedding-row {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+    margin-bottom: 0;
+    margin-top: 4rem;
+  }
+
+  .wedding-row.reverse {
+    direction: ltr;
+  }
+
+  .wedding-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .wedding-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wedding-row {
+    border-bottom: 1px solid rgba(70, 18, 118, 0.12);
+    padding-bottom: 4rem;
+  }
+}
+</style>
+
+<section class="hero">
+  <div class="slides">
+    <div class="slide active">
+      <div class="spline">
+        <spline-viewer
+          class="spline-ele"
+          url="https://prod.spline.design/ApTXZNM7kQDF5HhN/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="hero-heading">
+        <h1 class="hero-heading-primary">Weddings</h1>
+        <p class="hero-heading-secondary">
+          Make your wedding unforgettable with Imperial Events
+        </p>
+        <a href="{% url 'plan_event' %}" class="hero-btn">Plan Your Event</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wedding-section">
+  <div class="wedding-container max-width">
+    <div class="wedding-row reveal">
+      <div class="wedding-image">
+        <img
+          src="https://symphonyevents.com.au/wp-content/uploads/2023/06/30-1024x683.jpg"
+          alt="Traditional Weddings Service"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon">
+          <i class="fa-solid fa-gopuram"></i>
+        </div>
+
+        <h2 class="wedding-heading">Traditional Weddings</h2>
+        <p class="wedding-subheading">
+          From soulful vows to majestic celebrations, we design weddings
+          that leave a lasting legacy.
+        </p>
+
+        <p class="wedding-desc">
+          A traditional wedding is a beautiful celebration of culture,
+          rituals, and timeless love. From sacred ceremonies and age-old
+          customs to vibrant décor and soulful music, every detail
+          reflects the rich heritage passed down through generations. The
+          warmth of family, the blessings of elders, and the joy of
+          togetherness create moments that are deeply meaningful and
+          unforgettable. With elegant traditions, authentic rituals, and
+          graceful celebrations, a traditional wedding is not just an
+          event — it is a legacy of love and culture brought to life.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="wedding-row reveal reverse">
+      <div class="wedding-image">
+        <img
+          src="https://www.suncoastweddings.com/wp-content/uploads/2011/09/purple-and-lavender-oasis.jpg"
+          alt="Destination Weddings"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon">
+          <i class="fa-solid fa-umbrella-beach"></i>
+        </div>
+
+        <h2 class="wedding-heading">Destination Weddings</h2>
+        <p class="wedding-subheading">
+          From elegant ceremonies to spectacular celebrations, we create
+          weddings that are timeless and unforgettable.
+        </p>
+
+        <p class="wedding-desc">
+          From sun-kissed beaches to royal palaces, we bring your dream
+          wedding to the world's most breathtaking locations. Complete
+          travel and venue management for you and your guests. A destination
+          wedding is the perfect blend of romance, travel, and
+          unforgettable celebration. Set against breathtaking locations
+          like serene beaches, royal palaces, or scenic hilltops, every
+          moment feels magical and exclusive. From personalized décor and
+          intimate ceremonies to luxury hospitality and curated
+          experiences for guests, a destination wedding turns your special
+          day into a once-in-a-lifetime journey.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="wedding-row reveal">
+      <div class="wedding-image">
+        <img
+          src="https://www.elegantwedding.ca/wp-content/uploads/2017/05/elegant-wedding-glamorous-purple-gold-ballroom-wedding20.jpg"
+          alt="Theme Weddings"
+        />
+      </div>
+
+      <div class="wedding-content">
+        <div class="wedding-icon"><i class="fa-solid fa-spa"></i></div>
+
+        <h2 class="wedding-heading">Theme Weddings</h2>
+        <p class="wedding-subheading">
+          From intimate ceremonies to grand celebrations, we create
+          unforgettable wedding experiences.
+        </p>
+
+        <p class="wedding-desc">
+          Your imagination is our blueprint. Whether it's a vintage garden
+          party or a grand royal theme, we create immersive environments
+          that tell your unique love story. A theme wedding is a creative
+          expression of your love story, designed to reflect your unique
+          style and personality. From elegant color palettes and
+          customized décor to coordinated outfits, lighting, and music,
+          every element follows a carefully curated theme.
+        </p>
+
+        <a href="{% url 'plan_event' %}" class="wedding-btn">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container max-width">
+    <h2 class="reveal">Create Your Dream Wedding</h2>
+    <p class="reveal">
+      Let us bring your vision to life with elegance and flawless planning
+    </p>
+
+    <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+      Start Planning Now
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

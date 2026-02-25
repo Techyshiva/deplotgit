@@ -1,0 +1,1083 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+
+  <style>
+    .hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 3rem;
+}
+
+
+.hero-heading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ededed;
+  transition: all 0.3s ease-in-out;
+  text-shadow: #000 0px 0px 100px;
+}
+#celebration {
+  font-size: 6rem;
+}
+
+.hero-heading:hover {
+  text-shadow: #000 0px 0px 50px;
+}
+
+.hero-heading-primary {
+  font-size: 6.5rem;
+}
+.hero-heading-secondary {
+  font-size: 2rem;
+  font-family: "Playwrite NZ Basic", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: rgb(252, 207, 93);
+  text-shadow: #000 0px 0px 10px;
+  white-space: nowrap;
+}
+/* 
+
+
+*/
+.hero-btn {
+  position: absolute;
+  top: 140%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 5.2rem;
+  padding: 0 3.2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgb(85, 25, 145);
+  color: rgb(255, 236, 223);
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+
+  border-radius: 999px;
+  border: none;
+
+  box-shadow: 0 0px 30px rgba(70, 18, 118, 0.5);
+
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.hero-btn a {
+  text-decoration: none;
+  color: rgb(255, 236, 223);
+}
+
+/* Hover – lift + glow */
+.hero-btn:hover {
+  background-color: rgb(105, 30, 175);
+
+  box-shadow: 0 0px 40px rgba(70, 18, 118, 0.65);
+}
+
+/* Click feel */
+.hero-btn:active {
+  box-shadow: 0 6px 16px rgba(70, 18, 118, 0.45);
+}
+
+/* 
+
+
+
+*/
+.slides {
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  color: white;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("static/images/material/carosel/carosel-wedding.png") center/cover no-repeat;
+}
+.slide:nth-child(2) {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("static/images/material/carosel/carosel-corporate.jpg") center/cover no-repeat;
+}
+.slide:nth-child(3) {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("static/images/material/carosel/carosel-birthday.png") center/cover no-repeat;
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Buttons */
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 3rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+}
+
+.prev {
+  left: 2rem;
+}
+.next {
+  right: 2rem;
+}
+
+/* TRUSTED BRANDS SECTION */
+
+.trusted-brands {
+  height: 12rem;
+  width: 100%;
+  overflow: hidden;
+  padding: 4rem 0;
+  background-color: rgb(255, 236, 223);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 5rem;
+}
+
+.trusted-brands-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-logos 25s linear infinite;
+}
+
+.trusted-brands-logo {
+  display: flex;
+  position: relative;
+  top: -7rem;
+  align-items: center;
+  gap: 4rem;
+  padding-right: 4rem;
+}
+
+#trust-img-1 {
+  height: 3rem;
+  width: auto;
+}
+#trust-img-2 {
+  height: 8rem;
+  width: auto;
+}
+#trust-img-3 {
+  height: 4rem;
+  width: auto;
+}
+#trust-img-4 {
+  height: 4.5rem;
+  width: auto;
+}
+#trust-img-5 {
+  height: 4rem;
+  width: auto;
+}
+#trust-img-6 {
+  height: 16rem;
+  width: auto;
+}
+#trust-img-7 {
+  height: 14rem;
+  width: auto;
+}
+#trust-img-8 {
+  height: 18rem;
+  width: auto;
+}
+
+#trust-img-9 {
+  height: 16rem;
+  width: auto;
+}
+#trust-img-10 {
+  height: 16rem;
+  width: auto;
+}
+
+.trusted-brands-logo img {
+  height: 60px; /* unify height */
+  width: auto; /* variable width */
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: 0.3s ease;
+}
+
+.trusted-brands-logo img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@keyframes scroll-logos {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+/* OUR SERVICES SECTION */
+.section-services {
+  height: auto;
+  width: 100%;
+  background-color: rgb(248, 226, 221);
+  padding: 5rem 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  margin-bottom: 5rem;
+}
+.services-heading {
+  text-align: center;
+  margin-bottom: 5rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.services-heading-primary {
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.services-heading-secondary {
+  color: rgb(105, 30, 175);
+  font-weight: 500;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+
+.services-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  margin: 0 auto;
+  margin-bottom: 8rem;
+}
+.services-card {
+  height: 32rem;
+  width: 35rem;
+  padding: 4rem 3rem;
+  background-color: rgb(255, 236, 223);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.services-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+.service-card-icon {
+  font-size: 4.8rem;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.service-card-icon ion-icon {
+  color: rgb(97, 15, 174);
+}
+
+.service-card-content {
+  text-align: left;
+  margin-bottom: 4rem;
+}
+.service-card-content-primary {
+  color: #222222;
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.service-card-content-secondary {
+  color: rgb(159, 119, 16);
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+.service-card-btn {
+  text-decoration: none;
+
+  color: rgb(97, 15, 174);
+  font-weight: 600;
+  font-size: 1.8rem;
+  transition: 0.3s ease;
+}
+.service-card-btn:hover {
+  color: rgb(83, 23, 140);
+}
+.service-card-btn-icon {
+  color: rgb(97, 15, 174);
+  font-size: 1.9rem;
+  margin-left: 0.5rem;
+  transition: 0.3s ease;
+  position: relative;
+  top: 0.4rem;
+}
+/* FEATURED SECTION */
+.featured-section {
+  height: auto;
+  width: 100%;
+  background-color: rgb(243, 223, 217);
+  padding: 5rem 0;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+}
+.featured-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+.featured-card {
+  position: relative;
+  height: 32rem;
+  width: 35rem;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: rgb(251, 242, 221);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.featured-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+.featured-card-content {
+  height: 50%;
+  width: 100%;
+  text-align: left;
+  position: absolute;
+  bottom: -3rem;
+  left: 2rem;
+  right: 2rem;
+  z-index: 3;
+  color: #fff;
+}
+
+.featured-card-content-primary {
+  color: rgb(105, 30, 175);
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.featured-card-content-secondary {
+  color: rgb(187, 144, 35);
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+.featured-tag {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: rgb(252, 207, 93);
+  margin-bottom: 0.6rem;
+}
+
+.featured-card-content-teritiary {
+  font-size: 1.4rem;
+  opacity: 0.85;
+}
+
+.featured-card img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.featured-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transition: background 0.3s ease-in-out;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1));
+}
+
+.featured-card:hover img {
+  transform: scale(1.05);
+  transition: 0.4s ease;
+}
+/* WHY SECTION */
+.why-section {
+  height: auto;
+  width: 100%;
+  background-color: rgb(177, 136, 214);
+  padding: 5rem 0;
+  margin: 0 auto;
+  margin-bottom: 10rem;
+}
+.why-section {
+  width: 100%;
+  padding: 8rem 0;
+  background: linear-gradient(135deg, rgb(105, 30, 175), rgb(177, 136, 214));
+  color: #ededed;
+}
+.why-header {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.why-header h2 {
+  font-size: 4.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.why-header p {
+  font-size: 1.8rem;
+  opacity: 0.9;
+  color: rgb(252, 207, 93);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem;
+  text-align: center;
+}
+.why-card h3 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.why-card p {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+.why-icon {
+  width: 8rem;
+  height: 8rem;
+  margin: 0 auto 2rem auto;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+.why-icon:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.why-icon ion-icon {
+  font-size: 3.2rem;
+  color: rgb(252, 207, 93);
+}
+/* TESTIMONIAL SECTION */
+.testimonial-section {
+  height: auto;
+  width: 100%;
+}
+.testimonial-header {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.testimonial-header h2 {
+  font-size: 4.6rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  color: rgb(70, 18, 118);
+
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.testimonial-header p {
+  font-size: 1.8rem;
+  opacity: 0.9;
+  color: rgb(105, 30, 175);
+  font-weight: 500;
+  letter-spacing: 0.45rem;
+  margin-bottom: 0.8rem;
+  font-family: "Playwrite NZ Basic", cursive;
+}
+
+.testimonial-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin-bottom: 10rem;
+}
+
+.testimonial-card {
+  background-color: rgb(255, 236, 223);
+  padding: 3rem;
+  border-radius: 1.6rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+.testimonial-stars {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.testimonial-stars ion-icon {
+  color: #fbbf24;
+  font-size: 2rem;
+}
+.testimonial-text {
+  font-size: 1.6rem;
+  color: #333333;
+  font-style: italic;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.testimonial-user img {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-user h4 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgb(70, 18, 118);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.testimonial-user span {
+  font-size: 1.2rem;
+  color: rgb(159, 119, 16);
+  font-family: "Playwrite NZ Basic", cursive;
+}
+  </style>  
+
+  <section class="hero">
+  <div class="slides">
+    <!-- slide 1 -->
+    <div class="slide active" >
+    <div class="hero-heading">
+      <h1 class="hero-heading-primary">Luxury Weddings</h1>
+      <p class="hero-heading-secondary">
+        Creating Memories that lasts forever
+      </p>
+              <a href="{% url 'plan_event' %}" class="hero-btn">Plan Your Event</a>
+            </div>
+          </div>
+          <!-- slide 2 -->
+          <div class="slide">
+            
+            <div class="hero-heading">
+              <h1 class="hero-heading-primary">Corporate Excelence</h1>
+              <p class="hero-heading-secondary">
+                Creating Memories that lasts forever
+              </p>
+              <button class="hero-btn">
+                <a href="{% url 'plan_event' %}">Plan Your Event</a>
+              </button>
+            </div>
+          </div>
+          <!-- slide 3 -->
+          <div class="slide">
+            
+            <div class="hero-heading">
+              <h1 class="hero-heading-primary" id="celebration">
+                Celebration Perfection
+              </h1>
+              <p class="hero-heading-secondary">
+                Unforgettable Moments, Flawless Memories
+              </p>
+              <button class="hero-btn">
+                <a href="{% url 'plan_event' %}">Plan Your Event</a>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <button class="prev">❮</button>
+        <button class="next">❯</button>
+      </section>
+      
+      <!-- TRUSTED BRANDS SECTION -->
+      <section class="trusted-brands">
+        <div class="trusted-brands-track">
+          <div class="trusted-brands-logo">
+            <img
+            id="trust-img-1"
+            src="{% static 'images/material/trust/trust-logo-1.png' %}"
+            alt=""
+            />
+            <img
+            id="trust-img-2"
+            src="{% static 'images/material/trust/trust-logo-2.png' %}"
+            alt=""
+            />
+            <img
+            id="trust-img-3"
+            src="{% static 'images/material/trust/trust-logo-3.png' %}"
+            alt=""
+            />
+            <img
+            id="trust-img-4"
+            src="{% static 'images/material/trust/trust-logo-4.png' %}"
+            alt=""
+            />
+            <img
+            id="trust-img-5"
+              src="{% static 'images/material/trust/trust-logo-5.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-6"
+              src="{% static 'images/material/trust/trust-logo-6.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-7"
+              src="{% static 'images/material/trust/trust-logo-7.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-8"
+              src="{% static 'images/material/trust/trust-logo-8.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-9"
+              src="{% static 'images/material/trust/trust-logo-9.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-10"
+              src="{% static 'images/material/trust/trust-logo-10.png' %}"
+              alt=""
+              />
+            </div>
+            
+            <!-- duplicate -->
+            <div class="trusted-brands-logo">
+              <img
+              id="trust-img-1"
+              src="{% static 'images/material/trust/trust-logo-1.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-2"
+              src="{% static 'images/material/trust/trust-logo-2.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-3"
+              src="{% static 'images/material/trust/trust-logo-3.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-4"
+              src="{% static 'images/material/trust/trust-logo-4.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-5"
+              src="{% static 'images/material/trust/trust-logo-5.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-6"
+              src="{% static 'images/material/trust/trust-logo-6.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-7"
+              src="{% static 'images/material/trust/trust-logo-7.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-8"
+              src="{% static 'images/material/trust/trust-logo-8.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-9"
+              src="{% static 'images/material/trust/trust-logo-9.png' %}"
+              alt=""
+              />
+              <img
+              id="trust-img-10"
+              src="{% static 'images/material/trust/trust-logo-10.png' %}"
+              alt=""
+              />
+            </div>
+          </div>
+        </section>
+        
+        <!-- OUR SERVICES SECTION -->
+        <section style="overflow: visible" class="section-services max-width">
+          <div class="services-heading reveal">
+            <h1 class="services-heading-primary">Our Services</h1>
+            <p class="services-heading-secondary">
+              From intimate gatherings to grand celebrations, we bring your vision
+              to life
+            </p>
+          </div>
+          <div class="services-cards reveal">
+            <div class="services-card">
+              <div class="service-card-icon">
+                <ion-icon name="heart-outline"></ion-icon>
+              </div>
+              <div class="service-card-content">
+                <h1 class="service-card-content-primary">Weddings</h1>
+                <p class="service-card-content-secondary">
+                  Turn your dream wedding into reality with our bespoke planning
+                  services
+                </p>
+              </div>
+              <a href="{% url 'services' %}" class="service-card-btn">Learn More </a>
+              <ion-icon
+              class="service-card-btn-icon"
+              name="arrow-forward-outline"
+              ></ion-icon>
+            </div>
+            <!-- CARD 2 -->
+            <div class="services-card">
+              <div class="service-card-icon">
+                <ion-icon name="briefcase-outline"></ion-icon>
+              </div>
+              <div class="service-card-content">
+                <h1 class="service-card-content-primary">Corporate Events</h1>
+                <p class="service-card-content-secondary">
+                  Professional events that elevate your brand and engage your
+                  audience
+                </p>
+              </div>
+              <a href="{% url 'services' %}" class="service-card-btn">Learn More </a>
+              <ion-icon
+              class="service-card-btn-icon"
+              name="arrow-forward-outline"
+              ></ion-icon>
+            </div>
+            <!-- CARD 3 -->
+            <div class="services-card">
+              <div class="service-card-icon">
+                <ion-icon name="sparkles-outline"></ion-icon>
+              </div>
+              <div class="service-card-content">
+                <h1 class="service-card-content-primary">Social Events</h1>
+                <p class="service-card-content-secondary">
+                  Birthdays, anniversaries, and celebrations crafted to perfection
+                </p>
+              </div>
+              <a href="{% url 'services' %}" class="service-card-btn">Learn More </a>
+              <ion-icon
+              class="service-card-btn-icon"
+              name="arrow-forward-outline"
+              ></ion-icon>
+            </div>
+          </div>
+        </section>
+        
+        <!-- FEATURED SECTION -->
+        <section class="featured-section">
+          <div class="services-heading max-width">
+            <h1 class="services-heading-primary reveal">Featured Events</h1>
+            <p class="services-heading-secondary reveal">
+              Recent celebrations that showcase our expertise
+            </p>
+          </div>
+          <div class="featured-container reveal max-width">
+
+            {% for event in featured_events %}
+            <div class="featured-card">
+
+              <img src="{{ event.image.url }}" alt="{{ event.title }}" />
+
+              <div class="featured-card-overlay"></div>
+
+              <div class="featured-card-content">
+                <span class="featured-tag">
+                  {{ event.get_display_category }}
+                </span>
+
+                <h1 class="featured-card-content-primary">
+                  {{ event.title }}
+                </h1>
+
+                <p class="featured-card-content-teritiary">
+                  {{ event.guests }}+ Guests | {{ event.event_date|date:"d M Y" }}
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="featured-card">
+              <img src="{% static 'images/material/home/featured/featured1.png' %}" alt="" />
+              
+              <div class="featured-card-overlay"></div>
+              
+              <div class="featured-card-content">
+                <span class="featured-tag">Wedding</span>
+                <h1 class="featured-card-content-primary">
+                  Ambani's Royal Wedding
+                </h1>
+                <p class="featured-card-content-teritiary">
+                  500+ Guests | 12th May 2023
+                </p>
+              </div>
+            </div>
+            <div class="featured-card">
+              <img src="{% static 'images/material/home/featured/featured2.png' %}" alt="" />
+              
+              <div class="featured-card-overlay"></div>
+              
+              <div class="featured-card-content">
+                <span class="featured-tag">Corporate </span>
+                <h1 class="featured-card-content-primary">
+                  Nvidia Tech Summit 2025
+                </h1>
+                <p class="featured-card-content-teritiary">
+                  1000+ Guests | 12th May 2023
+                </p>
+              </div>
+            </div>
+            <div class="featured-card">
+              <img src="{% static 'images/material/home/featured/featured3.png' %}" alt="" />
+              
+              <div class="featured-card-overlay"></div>
+              
+              <div class="featured-card-content">
+                <span class="featured-tag">Social </span>
+                <h1 class="featured-card-content-primary">
+                  Kardashian's Birthday Gala
+                </h1>
+                <p class="featured-card-content-teritiary">
+                  300+ Guests | 12th May 2023
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION WHY CHOOSE US -->
+        <section class="why-section">
+          <div class="why-container max-width">
+            <div class="why-header">
+              <h2 class="reveal">Why Choose Emperial Events?</h2>
+              <p class="reveal">
+                Excellence in every detail, perfection in every moment
+              </p>
+            </div>
+            
+            <div class="why-cards reveal">
+              <div class="why-card">
+                <div class="why-icon">
+                  <ion-icon name="ribbon-outline"></ion-icon>
+                </div>
+                <h3>15+ Years Experience</h3>
+                <p>Industry-leading expertise</p>
+              </div>
+              
+              <div class="why-card">
+                <div class="why-icon">
+                  <ion-icon name="people-outline"></ion-icon>
+                </div>
+                <h3>5000+ Events</h3>
+                <p>Successfully executed</p>
+              </div>
+              
+              <div class="why-card">
+                <div class="why-icon">
+                  <ion-icon name="trophy-outline"></ion-icon>
+                </div>
+                <h3>50+ Awards</h3>
+                <p>Industry recognition</p>
+              </div>
+              
+              <div class="why-card">
+                <div class="why-icon">
+                  <ion-icon name="star-outline"></ion-icon>
+                </div>
+                <h3>100% Satisfaction</h3>
+                <p>Client happiness guaranteed</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- TESTIMONIAL SECTION -->
+        <section class="testimonial-section">
+        <div class="testimonial-container max-width">
+          <div class="testimonial-header">
+            <h2>Client Testimonials</h2>
+            <p>Hear from those who experienced our excellence</p>
+          </div>
+          
+          <div class="testimonial-cards reveal">
+            {% for t in testimonials %}
+            <div class="testimonial-card">
+              <div class="testimonial-stars" style="margin-bottom: 10px;">
+                {% for i in "12345"|slice:":t.stars"|make_list %}
+                    <ion-icon name="star" style="color: #fbb034;"></ion-icon>
+                {% endfor %}
+            </div>
+              <p class="testimonial-text">"{{ t.text }}"</p>
+              <div class="testimonial-user">
+                <img src="{{ t.image.url }}" alt="{{ t.name }}" />
+                <div>
+                  <h4>{{ t.name }}</h4>
+                  <span>{{ t.role }}</span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- Card 1 -->
+            <div class="testimonial-card">
+              <div class="testimonial-stars">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+              </div>
+              
+              <p class="testimonial-text">
+                "Imperial Events turned our wedding into a fairy tale. Every
+                detail was perfect!"
+              </p>
+              
+              <div class="testimonial-user">
+                <img
+                src="{% static 'images/material/home/testimonials/testimonials1.png' %}"
+                alt=""
+                />
+                <div>
+                  <h4>Sarah Shinde</h4>
+                  <span>Bride</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="testimonial-card">
+              <div class="testimonial-stars">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+              </div>
+              
+              <p class="testimonial-text">
+                "Outstanding professionalism. Our annual conference was
+                flawlessly executed."
+              </p>
+              
+              <div class="testimonial-user">
+                <img
+                src="{% static 'images/material/home/testimonials/testimonials2.png' %}"
+                alt=""
+                />
+                <div>
+                  <h4>Satish Johnson</h4>
+                  <span>CEO, TechCorp</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="testimonial-card">
+              <div class="testimonial-stars">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+              </div>
+              
+              <p class="testimonial-text">
+                "The best event management, we have ever worked with. Highly
+                recommended!"
+              </p>
+              
+              <div class="testimonial-user">
+                <img
+                src="{% static 'images/material/home/testimonials/testimonials3.png' %}"
+                alt=""
+                />
+                <div>
+                  <h4>Emma Kamble</h4>
+                  <span>Event Coordinator</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- CTA SECTION -->
+      <section class="cta-section">
+        <div class="cta-container max-width">
+          <h2 class="reveal">Ready to Create Your Perfect Event?</h2>
+          <p class="reveal">
+            Let's bring your vision to life with our expertise and creativity
+          </p>
+          
+          <a href="{% url 'plan_event' %}" class="cta-btn reveal">
+            Start Planning Now
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </a>
+        </div>
+      </section>  
+      
+      
+{% endblock %}
+
