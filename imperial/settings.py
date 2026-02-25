@@ -133,3 +133,15 @@ import dj_database_url
 DATABASES['default'] = dj_database_url.config(
     default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
 )
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.railway.app",
+]
+
+ALLOWED_HOSTS = [
+    ".railway.app",
+]
+
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
