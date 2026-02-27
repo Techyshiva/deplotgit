@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 # Portfolio
