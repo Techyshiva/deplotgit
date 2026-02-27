@@ -16,7 +16,10 @@ class Portfolio(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     custom_category = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='portfolio/')
+
+    # ✅ FIXED
+    image = CloudinaryField('image')
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
@@ -33,24 +36,28 @@ class Portfolio(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     
 # Gallery
 
 class Gallery(models.Model):
-    image = models.ImageField(upload_to='gallery/')
+
+    # ✅ FIXED
+    image = CloudinaryField('image')
+
     alt_text = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.alt_text if self.alt_text else "Gallery Image"
-    
 # About 
 
 class TeamMember(models.Model):
+
     name = models.CharField(max_length=150)
     role = models.CharField(max_length=150)
-    image = models.ImageField(upload_to='team/')
+
+    # ✅ FIXED
+    image = CloudinaryField('image')
+
     linkedin_url = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -65,6 +72,7 @@ class JobOpening(models.Model):
     experience = models.CharField(max_length=100, help_text="e.g. 3+ years experience")
     created_at = models.DateTimeField(auto_now_add=True)
     
+# FeaturedEvent
 class FeaturedEvent(models.Model):
 
     CATEGORY_CHOICES = [
@@ -81,18 +89,37 @@ class FeaturedEvent(models.Model):
     guests = models.IntegerField()
     event_date = models.DateField()
 
-    image = models.ImageField(upload_to='featured_events/')
+    # ✅ FIXED
+    image = CloudinaryField('image')
 
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def get_display_category(self):
-        if self.category == "custom" and self.custom_category:
-            return self.custom_category
-        return dict(self.CATEGORY_CHOICES).get(self.category)
 
-    def __str__(self):
-        return self.title
+# Blog
+class Blog(models.Model):
+
+    # ✅ FIXED
+    image = CloudinaryField('image')
+
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+# Testimonial
+class Testimonial(models.Model):
+
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100, blank=True)
+    text = models.TextField()
+
+    # ✅ FIXED
+    image = CloudinaryField('image')
+
+    stars = models.PositiveSmallIntegerField(default=5)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     
 class Facility(models.Model):
@@ -104,15 +131,7 @@ class Facility(models.Model):
     def __str__(self):
         return self.title
     
-class Blog(models.Model):
-    image = models.ImageField(upload_to='blogs/')
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    date = models.DateField()
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.title
     
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
@@ -143,13 +162,4 @@ class PrivacyPolicy(models.Model):
     
         
 # Testimonial
-class Testimonial(models.Model):
-    name = models.CharField(max_length=100)
-    role = models.CharField(max_length=100, blank=True)
-    text = models.TextField()
-    image = models.ImageField(upload_to='testimonials/')
-    stars = models.PositiveSmallIntegerField(default=5)  # 1 to 5
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.name
