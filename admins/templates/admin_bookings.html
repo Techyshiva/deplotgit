@@ -140,8 +140,13 @@
                 <div>{{ b.additional_info }}</div>
             </div>
             <div class="booking-actions">
-                <a href="{% url 'delete_booking' b.pk %}" class="action-btn delete-btn"
-                   onclick="return confirm('Delete this booking?')">Delete</a>
+                <form method="POST" action="{% url 'delete_booking' b.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn delete-btn"
+                        onclick="return confirm('Delete this booking?')">
+                        Delete
+                    </button>
+                </form>
             </div>
         </div>
     {% empty %}
