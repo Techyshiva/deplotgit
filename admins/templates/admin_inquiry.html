@@ -111,7 +111,7 @@
                 <div>{{ msg.message|default:"-" }}</div>
             </div>
             <form method="POST" action="{% url 'delete_inquiry' msg.pk %}" style="display:inline;">
-    {% csrf_token %}
+                {% csrf_token %}
                 <button type="submit" class="action-btn delete-btn"
                     onclick="return confirm('Delete this message from {{ msg.name }}?')">
                     Delete
