@@ -385,7 +385,7 @@ def admin_bookings(request):
 def delete_booking(request, pk):
     booking = get_object_or_404(EventBooking, pk=pk)
     booking.delete()
-    return redirect('admin_bookings')
+    return redirect('admin_booking')
 
 
 
