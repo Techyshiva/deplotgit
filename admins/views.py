@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Portfolio, Gallery,TeamMember,JobOpening,Facility ,Blog, FAQ, Term,PrivacyPolicy,  FeaturedEvent, Testimonial
 from .forms import PortfolioForm, GalleryForm, TeamMemberForm, JobOpeningForm, FacilityForm, BlogForm, FAQForm, TermForm, PrivacyPolicyForm, FeaturedEventForm, TestimonialForm
 from main.models import EventBooking, ContactEnquiry
+from django.views.decorators.http import require_POST
 
 
 
@@ -378,11 +379,12 @@ def admin_bookings(request):
     return render(request, 'admin_bookings.html', {'bookings': bookings})
 
 # 3. DELETE: Remove a booking and refresh the page
-@user_passes_test(is_admin, login_url='/admin/login/') 
+
+@user_passes_test(is_admin, login_url='/admin/login/')
+@require_POST
 def delete_booking(request, pk):
     booking = get_object_or_404(EventBooking, pk=pk)
     booking.delete()
-    # Optional: messages.error(request, 'Booking deleted.')
     return redirect('admin_bookings')
 
 

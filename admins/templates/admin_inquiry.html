@@ -110,10 +110,13 @@
                 <strong>Message:</strong>
                 <div>{{ msg.message|default:"-" }}</div>
             </div>
-            <div class="message-actions">
-                <a href="{% url 'delete_inquiry' msg.pk %}" class="action-btn delete-btn"
-                   onclick="return confirm('Delete this message from {{ msg.name }}?')">Delete</a>
-            </div>
+            <form method="POST" action="{% url 'delete_inquiry' msg.pk %}" style="display:inline;">
+    {% csrf_token %}
+                <button type="submit" class="action-btn delete-btn"
+                    onclick="return confirm('Delete this message from {{ msg.name }}?')">
+                    Delete
+                </button>
+            </form>
         </div>
     {% empty %}
         <div style="text-align:center; padding:20px; font-size:16px;">No messages found.</div>
