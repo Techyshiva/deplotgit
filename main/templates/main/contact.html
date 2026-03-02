@@ -308,7 +308,7 @@
     {% csrf_token %}
     <div class="form-group">
         <label for="name">Name *</label>
-        <input type="text" name="name" id="name" placeholder="Your Name" class="form-input" required />
+        <input type="text" name="name" id="name" placeholder="Your Name" class="form-input" pattern="[A-Za-z ]+" required />
     </div>
 
     <div class="form-group">

@@ -596,3 +596,25 @@ footer {
   opacity: 1;
   color: rgb(252, 207, 93);
 }
+
+
+
+
+
+
+
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.alert.error {
+    background-color: #ffe5e5;
+    color: #b30000;
+}
+
+.alert.success {
+    background-color: #e6ffe6;
+    color: #006600;
+}
