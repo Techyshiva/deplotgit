@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from admins.models import Portfolio, Gallery, TeamMember, JobOpening,Facility,Blog,FAQ,Term,PrivacyPolicy
+from datetime import date
+from django.contrib import messages
 from django.shortcuts import render, redirect
-from admins.models import Portfolio, Gallery, FeaturedEvent, Testimonial
+from admins.models import Portfolio, Gallery, TeamMember, JobOpening, Facility, Blog, FAQ, Term, PrivacyPolicy, FeaturedEvent, Testimonial
 from main.models import EventBooking, ContactEnquiry
 # Create your views here.
 def home(request):
@@ -65,26 +66,60 @@ def gallery(request):
     images = Gallery.objects.all().order_by('-created_at')
     return render(request, "main/gallery.html", {'images': images})
 
+
 def plan_event(request):
+    context = {
+        "today": date.today().isoformat()
+    }
+
     if request.method == "POST":
+        event_date = request.POST.get("event_date")
+        expected_guests = request.POST.get("expected_guests")
+        mobile = request.POST.get("mobile_number")
+
+        # 🔹 1. Validate Event Date
+        if event_date:
+            if date.fromisoformat(event_date) <= date.today():
+                messages.error(request, "Event date must be in the future.")
+                return redirect("plan_event")
+
+        # 🔹 2. Validate Expected Guests
+        try:
+            expected_guests = int(expected_guests)
+            if expected_guests <= 0 or expected_guests > 100000:
+                messages.error(request, "Enter a realistic number of guests.")
+                return redirect("plan_event")
+        except:
+            messages.error(request, "Invalid guest number.")
+            return redirect("plan_event")
+
+        # 🔹 3. Validate Mobile Number (10 digits)
+        if not mobile or not mobile.isdigit() or len(mobile) != 10:
+            messages.error(request, "Enter a valid 10-digit mobile number.")
+            return redirect("plan_event")
+
+        # 🔹 4. Save Data
         try:
             EventBooking.objects.create(
                 event_type=request.POST.get('event_type'),
-                event_date=request.POST.get('event_date'),
+                event_date=event_date,
                 event_city=request.POST.get('event_city'),
-                expected_guests=request.POST.get('expected_guests'),
+                expected_guests=expected_guests,
                 event_budget=request.POST.get('event_budget'),
                 full_name=request.POST.get('full_name'),
                 email=request.POST.get('email'),
-                mobile_number=request.POST.get('mobile_number'),
+                mobile_number=mobile,
                 additional_info=request.POST.get('additional_info')
             )
-            return redirect('plan_event') 
-            
-        except Exception as e:
-            return redirect('plan_event')
 
-    return render(request, 'main/plan-event.html')
+            messages.success(request, "Event request submitted successfully!")
+            return redirect("plan_event")
+
+        except Exception as e:
+            messages.error(request, "Something went wrong. Please try again.")
+            return redirect("plan_event")
+
+    return render(request, "main/plan-event.html", context)
 
 def privacy(request):
     policies = PrivacyPolicy.objects.all().order_by('order')

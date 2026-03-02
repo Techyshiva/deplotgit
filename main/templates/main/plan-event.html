@@ -283,11 +283,9 @@
       <section class="booking-form-section max-width">
         
         {% if messages %}
-            <div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; border: 1px solid #c3e6cb;">
-                {% for message in messages %}
-                    <strong>{{ message }}</strong>
-                {% endfor %}
-            </div>
+          {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
         {% endif %}
 
         <form id="form" method="POST" action="{% url 'plan_event' %}" class="booking-form-container booking-form-max-width">
@@ -322,7 +320,7 @@
                           name="event_date"
                           class="form-input event-date"
                           type="date"
-                          placeholder="Event Date"
+                          min="{{ today }}"
                           required
                         />
                     </div>
@@ -340,8 +338,10 @@
                         <label><ion-icon name="people-outline"></ion-icon> Expected Guests</label>
                         <input
                           name="expected_guests"
-                          class="form-input expexted-guests"
+                          class="form-input expected-guests"
                           type="number"
+                          min="1"
+                          max="500000"
                           placeholder="Expected Guests"
                           required
                         />
@@ -394,8 +394,10 @@
                         <input
                           name="mobile_number"
                           class="form-input user-number"
-                          type="number"
-                          placeholder="Enter Mobile Number"
+                          type="tel"
+                          pattern="[0-9]{10}"
+                          maxlength="10"
+                          placeholder="Enter 10-digit Mobile Number"
                           required
                         />
                     </div>
